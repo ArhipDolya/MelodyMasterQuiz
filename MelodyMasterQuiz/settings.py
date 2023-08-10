@@ -11,7 +11,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/4.2/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'django-insecure-1*bn#44n27i)9ig4!e8f4_&)j8_h+bp)*yh9z5d8zefg^@j3!w'
+SECRET_KEY = config('SECRET_KEY')
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
@@ -30,6 +30,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
 
     'MelodyQuizApp',
+    'spotify_auth_app',
 ]
 
 MIDDLEWARE = [
@@ -124,4 +125,4 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 SPOTIPY_CLIENT_ID = config('SPOTIPY_CLIENT_ID')
 SPOTIPY_CLIENT_SECRET = config('SPOTIPY_CLIENT_SECRET')
-SPOTIPY_REDIRECT_URI = 'http://localhost:8000/profile/'
+SPOTIPY_REDIRECT_URI = 'http://localhost:8000/callback'

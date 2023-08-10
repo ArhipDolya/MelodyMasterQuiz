@@ -1,0 +1,15 @@
+{% extends 'base.html' %}
+
+{% block title %}
+    <title>Profile</title>
+{% endblock %}
+
+{% block content %}
+    <h1>User Profile</h1>
+    <div>
+        <p><strong>Display Name:</strong> {{ user_data.display_name }}</p>
+        <p><strong>Email:</strong> {{ user_data.email }}</p>
+        <p><strong>Country:</strong> {{ user_data.country }}</p>
+        <a href="{% url 'homepage' %}">Homepage</a>
+    </div>
+{% endblock %}

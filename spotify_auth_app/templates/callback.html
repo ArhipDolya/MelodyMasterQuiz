@@ -1,0 +1,11 @@
+{% extends 'base.html' %}
+
+{% block title %}
+    <title>Callback</title>
+{% endblock %}
+
+{% block content %}
+    <h1>Authentication Successful</h1>
+    <p>You have successfully authenticated with Spotify.</p>
+    <a href="{% url 'profile' %}">View Profile</a>
+{% endblock %}
