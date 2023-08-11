@@ -1,0 +1,43 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}
+    <title>Music Search</title>
+{% endblock %}
+
+{% block content %}
+    <div class="container mt-5">
+        <div class="row justify-content-center">
+            <div class="col-md-6">
+                <div class="card">
+                    <div class="card-body">
+                        <h1 class="card-title">Music Search</h1>
+                        <input type="text" id="track-name" class="form-control" placeholder="Enter song name">
+                        <button id="search-button" class="btn btn-primary mt-3">Search</button>
+                        <div id="track-info" class="mt-3"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        document.getElementById('search-button').addEventListener('click', async () => {
+            const trackName = document.getElementById('track-name').value;
+            const response = await fetch(`/api/track/${encodeURIComponent(trackName)}/`);
+            const data = await response.json();
+
+            // Display track and artist information in a user-friendly format
+            const trackInfoContainer = document.getElementById('track-info');
+            trackInfoContainer.innerHTML = `
+                <h2>Track Information</h2>
+                <p><strong>Name:</strong> ${data.track_info.name}</p>
+                <p><strong>Artist:</strong> ${data.artist_info.name}</p>
+                <audio controls>
+                    <source src="${data.track_info.preview_url}" type="audio/mpeg">
+                    Your browser does not support the audio element.
+                </audio>
+            `;
+        });
+    </script>
+{% endblock %}

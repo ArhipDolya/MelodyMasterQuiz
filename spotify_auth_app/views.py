@@ -1,6 +1,9 @@
 from django.shortcuts import redirect, render
 from django.conf import settings
+from django.http import JsonResponse
+
 import requests
+
 
 
 
@@ -41,3 +44,37 @@ def profile(request):
         return render(request, 'profile.html', {'user_data': user_data})
     else:
         return render(request, 'error.html')
+
+
+def get_track_info(request, track_name):
+    CLIENT_ID = settings.SPOTIPY_CLIENT_ID
+    CLIENT_SECRET = settings.SPOTIPY_CLIENT_SECRET
+
+    api_url = f'https://api.spotify.com/v1/search?q={track_name}&type=track'
+
+    access_token = request.session['access_token']
+    headers = {'Authorization': f'Bearer {access_token}'}
+
+    response = requests.get(api_url, headers=headers)
+
+    if response.status_code == 200:
+        data = response.json()
+
+        tracks = data.get('tracks', {}).get('items', [])
+
+        if track_name:
+            first_track = tracks[0] # Get the first track result
+            track_info = {
+                'name': first_track['name'],
+                'preview_url': first_track['preview_url'],
+            }
+            artist_info = {
+                'name': first_track['artists'][0]['name']
+            }
+
+            return JsonResponse({'track_info': track_info, 'artist_info': artist_info})
+        else:
+            return JsonResponse({'error': 'No track found with that name'})
+
+    else:
+        return JsonResponse({'error': 'Unable to fetch track information'})
