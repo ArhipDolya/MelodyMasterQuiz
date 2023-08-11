@@ -1,11 +1,27 @@
 {% extends 'base.html' %}
 
+{% load static %}
+
 {% block title %}
     <title>Callback</title>
 {% endblock %}
 
+{% block cssLink %}
+    <link rel="stylesheet" href="{% static 'css/callback.css' %}">
+{% endblock %}
+
 {% block content %}
-    <h1>Authentication Successful</h1>
-    <p>You have successfully authenticated with Spotify.</p>
-    <a href="{% url 'profile' %}">View Profile</a>
+    <div class="container mt-5">
+        <div class="row justify-content-center">
+            <div class="col-md-6">
+                <div class="card">
+                    <div class="card-body">
+                        <h1 class="card-title">Authentication Successful</h1>
+                        <p class="card-text">You have successfully authenticated with Spotify.</p>
+                        <a href="{% url 'profile' %}" class="btn btn-primary">View Profile</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 {% endblock %}

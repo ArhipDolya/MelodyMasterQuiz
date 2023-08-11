@@ -1,0 +1,62 @@
+body {
+    background-color: #f5f5f5;
+    font-family: Arial, sans-serif;
+}
+
+.container {
+    width: 100%;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 30px;
+    box-sizing: border-box;
+}
+
+.profile-heading {
+    font-size: 36px;
+    margin-bottom: 20px;
+}
+
+.profile-info {
+    font-size: 18px;
+    margin-bottom: 10px;
+}
+
+.profile-link {
+    color: #007bff;
+    text-decoration: none;
+    font-weight: bold;
+    transition: color 0.2s;
+}
+
+.profile-link:hover {
+    color: #0056b3;
+}
+
+
+.homepage-button {
+    background-color: #fff; 
+    color: #007bff; /* Измените цвет текста кнопки */
+    border: 2px solid #007bff; /* Добавьте рамку */
+    padding: 10px 20px;
+    font-size: 18px;
+    font-weight: bold;
+    text-decoration: none;
+    border-radius: 5px;
+    transition: background-color 0.2s, color 0.2s;
+}
+
+.homepage-button:hover {
+    background-color: #007bff;
+    color: #fff; 
+}
+
+.email-toggle {
+    cursor: pointer;
+    color: #007bff;
+    text-decoration: none;
+    transition: color 0.2s;
+}
+
+.email-toggle:hover {
+    color: #0056b3;
+}

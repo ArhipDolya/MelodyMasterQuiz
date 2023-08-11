@@ -1,15 +1,48 @@
 {% extends 'base.html' %}
 
+{% load static %}
+
+{% block cssLink %}
+    <link rel="stylesheet" href="{% static 'css/profile.css' %}">
+{% endblock %}
+
 {% block title %}
     <title>Profile</title>
 {% endblock %}
 
 {% block content %}
-    <h1>User Profile</h1>
-    <div>
-        <p><strong>Display Name:</strong> {{ user_data.display_name }}</p>
-        <p><strong>Email:</strong> {{ user_data.email }}</p>
-        <p><strong>Country:</strong> {{ user_data.country }}</p>
-        <a href="{% url 'homepage' %}">Homepage</a>
+    <div class="container mt-5">
+        <div class="row justify-content-center">
+            <div class="col-md-6">
+                <div class="card">
+                    <div class="card-body">
+                        <h1 class="profile-heading card-title">User Profile</h1>
+                        <div class="profile-info card-text">
+                            <p><strong>Display Name:</strong> {{ user_data.display_name }}</p>
+                            <p><strong>Email:</strong> <span id="email-toggle" class="email-toggle">Click to reveal email</span></p>
+                            <p><strong>Country:</strong> {{ user_data.country }}</p>
+                        </div>
+                        <a href="{% url 'homepage' %}" class="homepage-button">Homepage</a>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
+
+
+    <script>
+        const emailToggle = document.getElementById('email-toggle');
+        let emailVisible = false;
+    
+        emailToggle.addEventListener('click', () => {
+            if (!emailVisible) {
+                emailToggle.textContent = '{{ user_data.email }}';
+                emailVisible = true;
+            } else {
+                emailToggle.textContent = 'Click to reveal email';
+                emailVisible = false;
+            }
+        });
+    </script>
+
 {% endblock %}
