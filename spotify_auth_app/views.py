@@ -46,13 +46,14 @@ def profile(request):
     else:
         return render(request, 'spotify_auth_app/error.html')
 
+
 @login_required(login_url='spotify_auth_app:login')
 def get_track_info(request, track_name):
 
     access_token = request.session['access_token']
 
-    if not access_token:
-        return JsonResponse({'error': 'Access token not found'})
+    if 'access_token' not in request.session:
+        return redirect('spotify_auth_app:login')
 
     headers = {'Authorization': f'Bearer {access_token}'}
 

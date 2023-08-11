@@ -28,7 +28,7 @@
             </a>
         </li>
 
-        {% if user.is_authenticated %}
+        {% if request.session.access_token %}
             <li>
                 <a href="{% url 'MelodyQuizApp:spotify_track_info' %}">
                     <span>
@@ -37,9 +37,7 @@
                     <span class='text'>MusicInfo</span>
                 </a>
             </li>
-        {% endif %}
-
-        {% if user.is_authenticated %}
+        
             <li>
                 <a href="{% url 'MelodyQuizApp:logout' %}">
                     <span>

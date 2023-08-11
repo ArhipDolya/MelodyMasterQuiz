@@ -3,11 +3,11 @@ from django.contrib.auth import logout
 
 
 def homepage(request):
-    return render(request, 'MelodyQuizApp/homepage.html')
+    return render(request, 'MelodyQuizApp/homepage.html', {'user': request.user})
 
 
 def spotify_track_info(request):
-    return render(request, 'spotify_auth_app/track_search.html')
+    return render(request, 'spotify_auth_app/track_search.html', {'user': request.user})
 
 
 def logout_view(request):
