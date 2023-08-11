@@ -26,27 +26,18 @@
             const trackName = document.getElementById('track-name').value;
             const response = await fetch(`/api/track/${encodeURIComponent(trackName)}/`);
             const data = await response.json();
-    
+
             // Display track and artist information in a user-friendly format
             const trackInfoContainer = document.getElementById('track-info');
             trackInfoContainer.innerHTML = `
-                <div class="row">
-                    <div class="col-md-6">
-                        <p><strong>Name:</strong> ${data.track_info.name}</p>
-                        <p><strong>Artist:</strong> ${data.artist_info.name}</p>
-                        <p><strong>Album:</strong> ${data.track_info.album}</p>
-                        <p><strong>Release Date:</strong> ${data.track_info.release_date}</p>
-                        <p><strong>Duration:</strong> ${data.track_info.duration_ms} ms</p>
-                    </div>
-                    <div class="col-md-6">
-                        <audio controls>
-                            <source src="${data.track_info.preview_url}" type="audio/mpeg">
-                            Your browser does not support the audio element.
-                        </audio>
-                    </div>
-                </div>
+                <h2>Track Information</h2>
+                <p><strong>Name:</strong> ${data.track_info.name}</p>
+                <p><strong>Artist:</strong> ${data.artist_info.name}</p>
+                <audio controls>
+                    <source src="${data.track_info.preview_url}" type="audio/mpeg">
+                    Your browser does not support the audio element.
+                </audio>
             `;
         });
     </script>
-    
 {% endblock %}

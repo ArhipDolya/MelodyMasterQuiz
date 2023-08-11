@@ -27,16 +27,28 @@
                 <span class='text'>Profile</span>
             </a>
         </li>
-        
-        <li>
-            <a href="{% url 'MelodyQuizApp:spotify_track_info' %}">
-                <span>
-                    <ion-icon name="person-circle-outline"></ion-icon>
-                </span>
-                <span class='text'>MusicInfo</span>
-            </a>
-        </li>
-        
+
+        {% if user.is_authenticated %}
+            <li>
+                <a href="{% url 'MelodyQuizApp:spotify_track_info' %}">
+                    <span>
+                        <ion-icon name="musical-notes-outline"></ion-icon>
+                    </span>
+                    <span class='text'>MusicInfo</span>
+                </a>
+            </li>
+        {% endif %}
+
+        {% if user.is_authenticated %}
+            <li>
+                <a href="{% url 'MelodyQuizApp:spotify_track_info' %}">
+                    <span>
+                        <ion-icon name="log-out-outline"></ion-icon>
+                    </span>
+                    <span class='text'>Logout</span>
+                </a>
+            </li>
+        {% endif %}
     </ul>
 </nav>
 

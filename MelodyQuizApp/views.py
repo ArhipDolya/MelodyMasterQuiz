@@ -1,4 +1,5 @@
 from django.shortcuts import redirect, render
+from django.contrib.auth import logout
 
 
 def homepage(request):
@@ -7,3 +8,4 @@ def homepage(request):
 
 def spotify_track_info(request):
     return render(request, 'spotify_auth_app/track_search.html')
+
