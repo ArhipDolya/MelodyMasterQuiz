@@ -9,3 +9,7 @@ def homepage(request):
 def spotify_track_info(request):
     return render(request, 'spotify_auth_app/track_search.html')
 
+
+def logout_view(request):
+    logout(request)
+    return redirect('MelodyQuizApp:homepage')
