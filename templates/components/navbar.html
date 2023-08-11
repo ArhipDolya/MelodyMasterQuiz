@@ -1,0 +1,37 @@
+{% load static %}
+
+<link href="https://fonts.googleapis.com/css2?family=Montserrat&display=swap" rel="stylesheet">
+<link rel='stylesheet' type='text/css' href="{% static 'css/navbar.css' %}">
+<script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
+<nav>
+    <input type='checkbox' id='check'>
+    <label for='check' class='checkbtn'>
+        <i class='fas fa-bars'></i>
+    </label>
+    <label class='logo'>MelodyMasterQuiz</label>
+    <ul>
+        <li>
+            <li><a href="{% url 'MelodyQuizApp:homepage' %}" class="active">
+                <span>
+                    <ion-icon name="home-outline"></ion-icon>
+                </span>
+                Home</a>
+            </li>
+        </li>
+
+        <li>
+            <a href="{% url 'spotify_auth_app:profile' %}">
+                <span>
+                    <ion-icon name="person-circle-outline"></ion-icon>
+                </span>
+                <span class='text'>Profile</span>
+            </a>
+        </li>
+
+        
+    </ul>
+</nav>
+
+
+<script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>
+<script nomodule src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"></script>

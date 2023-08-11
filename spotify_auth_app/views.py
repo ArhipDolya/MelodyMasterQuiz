@@ -30,7 +30,7 @@ def callback(request):
 def profile(request):
     # Check if the user is authenticated
     if 'access_token' not in request.session:
-        return redirect('login')
+        return redirect('spotify_auth_app:login')
 
     access_token = request.session['access_token']
     headers = {'Authorization': f'Bearer {access_token}'}
