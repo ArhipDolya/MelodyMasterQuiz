@@ -7,5 +7,50 @@
 
 {% block content %}
     <h1>Game Page</h1>
+
+    <div id='timer'>30</div>
+    <button id='submit-answer'>Submit Answer</button>
+
+
+    <script>
+        function updateTimer(newTime){
+            const timerElement = document.getElementById('timer')
+            timerElement.innerHTMl = newTime
+        }
+
+        function startTimer() {
+            let timer = 30;
+
+            const timerInterval = setInterval(() => {
+                updateTimer(timer)
+                timer--
+                
+                if (timer < 0) {
+                    clearInterval(timerInterval)
+                    updateTimer(`Time's up!`)
+                }
+
+            }, 1000)
+        }
+
+        startTimer()
+        
+        // Use AJAX to fetch new time from the server
+        function fetchNewTime() {
+            // Make an AJAX request to your API endpoint
+            fetch('/api/get_timer/')  // Make sure the URL matches the one you defined
+                .then(response => response.json())
+                .then(data => {
+                    updateTimer(data.timer);  // Update the timer element with fetched data
+                })
+                .catch(error => {
+                    console.error('Error fetching new time:', error);
+                });
+        }
+
+        setInterval(fetchNewTime, 5000)
+
+    </script>
+
 {% endblock %}
 

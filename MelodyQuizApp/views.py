@@ -1,5 +1,7 @@
 from django.shortcuts import redirect, render
 from django.contrib.auth import logout
+from django.http import JsonResponse
+from django.contrib.auth.decorators import login_required
 from .models import Question, Answer, UserProgress, GameStatistic
 
 import random
@@ -46,3 +48,9 @@ def check_answer(request, question_id, answer_id):
         game_statistic.save()
 
     return redirect('next_question_route')
+
+
+def get_timer(request):
+    timer_data = {'timer': 30}
+
+    return JsonResponse(timer_data)
