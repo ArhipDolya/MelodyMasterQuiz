@@ -28,6 +28,7 @@ class UserProgress(models.Model):
     def __str__(self):
         return f'{self.user.username} - {self.question.text}'
     
+    
 class GameStatistic(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE)
     correct_answers = models.PositiveIntegerField(default=0)

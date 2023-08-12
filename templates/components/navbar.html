@@ -29,6 +29,16 @@
         </li>
 
         {% if request.session.access_token %}
+
+            <li>
+                <a href="{% url 'MelodyQuizApp:quiz_game_view' %}">
+                    <span>
+                        <ion-icon name="game-controller-outline"></ion-icon>
+                    </span>
+                    <span class='text'>QuizGame</span>
+                </a>
+            </li>
+
             <li>
                 <a href="{% url 'MelodyQuizApp:spotify_track_info' %}">
                     <span>
