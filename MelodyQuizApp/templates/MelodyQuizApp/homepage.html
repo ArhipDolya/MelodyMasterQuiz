@@ -1,10 +1,17 @@
 {% extends 'base.html' %}
 
-
 {% block title %}
     <title>Homepage</title>
 {% endblock %}
 
 {% block content %}
-    <h1>Homepage</h1>
+    {% if not request.session.access_token %}
+        <div class="container text-center mt-5">
+            <h1 class="mb-4">Welcome to MelodyMasterQuiz</h1>
+
+            <div class="welcome-message p-4">
+                <h2 class="mb-3">To access full functionality, please <a href="{% url 'spotify_auth_app:profile' %}">Log in</a> with your Spotify account.</h2>
+            </div>
+        </div>
+    {% endif %}
 {% endblock %}

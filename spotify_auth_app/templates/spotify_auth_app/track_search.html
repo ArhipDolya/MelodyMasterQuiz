@@ -27,7 +27,7 @@
             const response = await fetch(`/api/track/${encodeURIComponent(trackName)}/`);
             const data = await response.json();
     
-            // Display track and artist information in a user-friendly format
+            // Convert duration and display track and artist information
             const trackInfoContainer = document.getElementById('track-info');
             trackInfoContainer.innerHTML = `
                 <div class="row">
@@ -36,7 +36,7 @@
                         <p><strong>Artist:</strong> ${data.artist_info.name}</p>
                         <p><strong>Album:</strong> ${data.track_info.album}</p>
                         <p><strong>Release Date:</strong> ${data.track_info.release_date}</p>
-                        <p><strong>Duration:</strong> ${data.track_info.duration_ms} ms</p>
+                        <p><strong>Duration:</strong> ${convertDuration(data.track_info.duration_ms)}</p>
                     </div>
                     <div class="col-md-6">
                         <audio controls>
@@ -47,6 +47,15 @@
                 </div>
             `;
         });
+
+        function convertDuration(milliseconds) {
+            const totalSeconds = Math.floor(milliseconds / 1000);
+            const minutes = Math.floor(totalSeconds / 60);
+            const seconds = totalSeconds % 60;
+    
+            return `${minutes} min ${seconds} sec`;
+        }
+
     </script>
     
 {% endblock %}
