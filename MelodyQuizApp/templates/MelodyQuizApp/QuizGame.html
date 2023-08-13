@@ -7,13 +7,16 @@
 {% block content %}
     <h1>Game Page</h1>
 
-    <div id='timer'>30</div>
-    <audio controls id="song-preview">
-        <source src="" type="audio/mpeg">
-        Your browser does not support the audio element.
-    </audio>
-    <input type="text" id="song-guess" placeholder="Enter the song name">
-    <button id='submit-answer'>Submit Answer</button>
+    <form id="guess-form">
+        {% csrf_token %}
+
+        <audio controls id="song-preview">
+            <source src="" type="audio/mpeg">
+            Your browser does not support the audio element.
+        </audio>
+        <input type="text" id="song-guess" placeholder="Enter the song name">
+        <button id="submit-answer">Submit Answer</button>
+    </form> 
 
     <script>
         // Existing timer code
@@ -33,6 +36,8 @@
                 .then(data => {
                     const songPreviewURL = data.song_preview_url;
                     songPreviewElement.src = songPreviewURL;
+                    songPreviewElement.volume = 0.1;
+                    songPreviewElement.play(); // Start playing the audio
                     startTimer();
                 })
                 .catch(error => {
@@ -51,8 +56,15 @@
         });
 
         function submitUserGuess(guess) {
-            fetch(`/MelodyQuizApp/api/submit_guess/?guess=${encodeURIComponent(guess)}`, {
-                method: 'POST'
+            const csrfToken = document.querySelector('input[name="csrfmiddlewaretoken"]').value;
+
+            fetch('/quiz/api/submit_guess/', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'X-CSRFToken': csrfToken,
+                },
+                body: JSON.stringify({ guess: guess }),
             })
                 .then(response => response.json())
                 .then(data => {
@@ -63,6 +75,7 @@
                     console.error('Error submitting guess:', error);
                 });
         }
+
     </script>
 
 {% endblock %} 

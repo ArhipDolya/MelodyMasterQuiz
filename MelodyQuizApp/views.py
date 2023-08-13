@@ -2,6 +2,7 @@ from django.shortcuts import redirect, render
 from django.contrib.auth import logout
 from django.http import JsonResponse
 from django.contrib.auth.decorators import login_required
+from django.contrib.auth.middleware import get_user
 from .models import Question, Answer, UserProgress, GameStatistic
 
 import random
@@ -92,7 +93,7 @@ def submit_guess(request):
     correct_song_name = request.GET.get('correct_song_name', '').strip().lower()
 
     if user_guess == correct_song_name:
-        user = request.user
+        user = get_user(request)  # Convert lazy object to actual user object
 
         user_statistic, _ = GameStatistic.objects.get_or_create(user=user)
         user_statistic.correct_answers += 1
