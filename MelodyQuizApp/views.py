@@ -5,6 +5,8 @@ from django.contrib.auth.decorators import login_required
 from .models import Question, Answer, UserProgress, GameStatistic
 
 import random
+import requests
+import json
 
 
 def homepage(request):
@@ -54,3 +56,49 @@ def get_timer(request):
     timer_data = {'timer': 30}
 
     return JsonResponse(timer_data)
+
+
+def get_random_song(request):
+    if 'access_token' not in request.session:
+        return JsonResponse({'error': 'Access token not found'})
+
+    access_token = request.session['access_token']
+    headers = {'Authorization': f'Bearer {access_token}'}
+
+    playlist_id = '37i9dQZF1DX9qNs32fujYe'  # Metal Essentials playlist ID
+    api_url = f'https://api.spotify.com/v1/playlists/{playlist_id}/tracks'
+    response = requests.get(api_url, headers=headers)
+
+    if response.status_code == 200:
+        data = response.json()
+
+        tracks = data.get('items', [])
+
+        if tracks:
+            random_track = random.choice(tracks)['track']
+            track_preview_url = random_track.get('preview_url')
+            track_name = random_track.get('name')
+
+            return JsonResponse({'song_preview_url': track_preview_url, 'correct_song_name': track_name})
+        else:
+            return JsonResponse({'error': 'No tracks found'})
+
+    else:
+        return JsonResponse({'error': 'Unable to fetch tracks'})
+
+
+def submit_guess(request):
+    user_guess = request.GET.get('guess', '').strip().lower()
+    correct_song_name = request.GET.get('correct_song_name', '').strip().lower()
+
+    if user_guess == correct_song_name:
+        user = request.user
+
+        user_statistic, _ = GameStatistic.objects.get_or_create(user=user)
+        user_statistic.correct_answers += 1
+        user_statistic.total_questions += 1
+        user_statistic.save()
+
+        return JsonResponse({'message': 'Correct guess!', 'score': user_statistic.correct_answers})
+    else:
+        return JsonResponse({'message': 'Incorrect guess!'})
