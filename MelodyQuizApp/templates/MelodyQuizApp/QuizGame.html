@@ -16,7 +16,9 @@
         </audio>
         <input type="text" id="song-guess" placeholder="Enter the song name">
         <button id="submit-answer">Submit Answer</button>
+        <div id="result-message"></div>
     </form> 
+
 
     <script>
         // Existing timer code
@@ -35,6 +37,11 @@
                 .then(response => response.json())
                 .then(data => {
                     const songPreviewURL = data.song_preview_url;
+                    const correctSongName = data.correct_song_name;
+        
+                    console.log(`Song Preview URL: ${songPreviewURL}`);
+                    console.log(`Correct Song Name: ${correctSongName}`);
+        
                     songPreviewElement.src = songPreviewURL;
                     songPreviewElement.volume = 0.1;
                     songPreviewElement.play(); // Start playing the audio
@@ -48,16 +55,17 @@
         startQuiz();
 
         // Submit user's answer
-        submitAnswerButton.addEventListener('click', () => {
+        submitAnswerButton.addEventListener('click', (event) => {
+            event.preventDefault(); // Prevent the default form submission
             const userGuess = songGuessElement.value.trim();
             if (userGuess) {
                 submitUserGuess(userGuess);
             }
-        });
+        });        
 
         function submitUserGuess(guess) {
             const csrfToken = document.querySelector('input[name="csrfmiddlewaretoken"]').value;
-
+        
             fetch('/quiz/api/submit_guess/', {
                 method: 'POST',
                 headers: {
@@ -66,14 +74,23 @@
                 },
                 body: JSON.stringify({ guess: guess }),
             })
-                .then(response => response.json())
-                .then(data => {
-                    // Handle response data, update score, etc.
-                    console.log(data);
-                })
-                .catch(error => {
-                    console.error('Error submitting guess:', error);
-                });
+            .then(response => response.json())
+            .then(data => {
+                const resultMessageElement = document.getElementById('result-message');
+                if (data.message === 'Correct guess!') {
+                    resultMessageElement.textContent = 'Congratulations! Your guess is correct!';
+                } else {
+                    resultMessageElement.textContent = 'Oops! Your guess is incorrect.';
+                }
+        
+                // Delay for a few seconds before reloading the form
+                setTimeout(() => {
+                    location.reload();
+                }, 5000); // Delay for 5 seconds
+            })
+            .catch(error => {
+                console.error('Error submitting guess:', error);
+            });
         }
 
     </script>

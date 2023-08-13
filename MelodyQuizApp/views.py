@@ -66,7 +66,7 @@ def get_random_song(request):
     access_token = request.session['access_token']
     headers = {'Authorization': f'Bearer {access_token}'}
 
-    playlist_id = '37i9dQZF1DX9qNs32fujYe'  # Metal Essentials playlist ID
+    playlist_id = '0jY91ayBgGlTDOC6YbHhFK'  # Linkin Park playlist ID
     api_url = f'https://api.spotify.com/v1/playlists/{playlist_id}/tracks'
     response = requests.get(api_url, headers=headers)
 
