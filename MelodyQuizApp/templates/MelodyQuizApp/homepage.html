@@ -9,8 +9,10 @@
         <div class="container text-center mt-5">
             <h1 class="mb-4">Welcome to MelodyMasterQuiz</h1>
 
-            <div class="welcome-message p-4">
-                <h2 class="mb-3">To access full functionality, please <a href="{% url 'spotify_auth_app:profile' %}">Log in</a> with your Spotify account.</h2>
+            <div class="card p-4">
+                <h2 class="card-title mb-3">To access full functionality, please <a href="{% url 'spotify_auth_app:profile' %}" class="btn btn-primary">Log in</a>
+                     with your <span style='color:green;'>Spotify</span> account.
+                </h2>
             </div>
         </div>
     {% endif %}

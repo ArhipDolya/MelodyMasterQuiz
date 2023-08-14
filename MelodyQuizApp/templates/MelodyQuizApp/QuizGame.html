@@ -28,13 +28,15 @@
                                         <span id="result-message-text"></span>
                                     </div>
                                 </form>
+                                
                             {% endif %}
                         {% endif %}
 
                         {% if not user.is_authenticated %}
                             <h3 class="mb-3">
                                 To get this functionality you firstly need to
-                                <a href="{% url 'AccountsApp:register' %}">Register</a> your account
+                                <a href="{% url 'AccountsApp:register' %}" style='text-decoration:none'>Register</a>
+                                or <a href="{% url 'AccountsApp:login' %}" style='text-decoration:none'>Login</a> your account!
                             </h3>
                         {% endif %}
                     </div>

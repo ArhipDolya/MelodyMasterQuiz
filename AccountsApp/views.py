@@ -2,6 +2,7 @@ from django.shortcuts import render, redirect
 from .forms import LoginForm, RegisterForm
 from django.contrib.auth import login, authenticate
 from django.contrib import messages
+from django.contrib.auth.models import User
 
 
 def login_view(request):
@@ -31,6 +32,11 @@ def register_view(request):
         if form.is_valid():
             user = form.save(commit=False)
             user.username = user.username.lower()
+
+            if is_password_used(user.password):
+                form.add_error('password1', 'This password is already in use. Please, change to another.')
+                return render(request, 'AccountsApp/registration.html', {'form': form})
+
             user.save()
 
             # Specify the authentication backend
@@ -42,3 +48,9 @@ def register_view(request):
         form = RegisterForm()
 
     return render(request, 'AccountsApp/registration.html', {'form': form})
+
+
+# Check if any user has the same password hash
+def is_password_used(password):
+    users_with_same_password = User.objects.filter(password__iexact=password)
+    return users_with_same_password.exists()
