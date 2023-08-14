@@ -1,28 +1,34 @@
 {% extends 'base.html' %}
 {% load static %}
 
-
 {% block title %}
     <title>Login</title>
 {% endblock %}
 
-
-
 {% block content %}
-    <h1>Login</h1>
+    <div class="container mt-5">
+        <div class="row justify-content-center">
+            <div class="col-md-6">
+                <div class="card">
+                    <div class="card-header">Login</div>
+                    <div class="card-body">
+                        <form method="POST">
+                            {% csrf_token %}
+                            <div class="form-group">
+                                <label for="username_or_email">Username or Email</label>
+                                <input type="text" class="form-control" id="username_or_email" name="username_or_email" required>
+                            </div>
 
-    <form method="POST">
-        {% csrf_token %}
-        <div class="form-group">
-            <label for="username_or_email">Username or Email</label>
-            <input type="text" class="form-control" id="username_or_email" name="username_or_email" required>
+                            <div class="form-group">
+                                <label for="password">Password</label>
+                                <input type="password" class="form-control" id="password" name="password" required>
+                            </div>
+                            
+                            <button type="submit" class="btn btn-primary">Login</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
         </div>
-
-        <div class="form-group">
-            <label for="password">Password</label>
-            <input type="password" class="form-control" id="password" name="password" required>
-        </div>
-        
-        <button type="submit" class="btn btn-primary">Login</button>
-    </form>
+    </div>
 {% endblock %}

@@ -15,7 +15,7 @@ def login_view(request):
 
             if user is not None:
                 login(request, user)
-                return redirect('MelodyQuizApp:homepage')
+                return redirect('MelodyQuizApp:quiz_game_view')
             else:
                 form.add_error('password', 'Invalid login credentials')
     else:
