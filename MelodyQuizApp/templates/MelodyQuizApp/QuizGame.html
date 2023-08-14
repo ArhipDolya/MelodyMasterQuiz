@@ -26,6 +26,7 @@
         const songPreviewElement = document.getElementById('song-preview');
         const songGuessElement = document.getElementById('song-guess');
         const submitAnswerButton = document.getElementById('submit-answer');
+        let correctSongName;
 
         function startQuiz() {
             // Fetch song and start timer
@@ -37,7 +38,7 @@
                 .then(response => response.json())
                 .then(data => {
                     const songPreviewURL = data.song_preview_url;
-                    const correctSongName = data.correct_song_name;
+                    correctSongName = data.correct_song_name;
         
                     console.log(`Song Preview URL: ${songPreviewURL}`);
                     console.log(`Correct Song Name: ${correctSongName}`);
@@ -61,7 +62,7 @@
             if (userGuess) {
                 submitUserGuess(userGuess);
             }
-        });        
+        });      
 
         function submitUserGuess(guess) {
             const csrfToken = document.querySelector('input[name="csrfmiddlewaretoken"]').value;
@@ -72,7 +73,7 @@
                     'Content-Type': 'application/json',
                     'X-CSRFToken': csrfToken,
                 },
-                body: JSON.stringify({ guess: guess }),
+                body: JSON.stringify({ guess: guess, correct_song_name: correctSongName }),
             })
             .then(response => response.json())
             .then(data => {

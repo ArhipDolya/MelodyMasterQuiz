@@ -89,17 +89,25 @@ def get_random_song(request):
 
 
 def submit_guess(request):
-    user_guess = request.GET.get('guess', '').strip().lower()
-    correct_song_name = request.GET.get('correct_song_name', '').strip().lower()
+    try:
+        data = json.loads(request.body)
+        user_guess = data.get('guess', '').strip().lower()
+        correct_song_name = data.get('correct_song_name', '').strip().lower()
 
-    if user_guess == correct_song_name:
-        user = get_user(request)  # Convert lazy object to actual user object
+        print(f"user_guess: {user_guess}")
+        print(f"correct_song_name: {correct_song_name}")
 
-        user_statistic, _ = GameStatistic.objects.get_or_create(user=user)
-        user_statistic.correct_answers += 1
-        user_statistic.total_questions += 1
-        user_statistic.save()
+        if user_guess == correct_song_name:
+            user = get_user(request)  # Convert lazy object to actual user object
 
-        return JsonResponse({'message': 'Correct guess!', 'score': user_statistic.correct_answers})
-    else:
-        return JsonResponse({'message': 'Incorrect guess!'})
+            user_statistic, _ = GameStatistic.objects.get_or_create(user=user)
+            user_statistic.correct_answers += 1
+            user_statistic.total_questions += 1
+            user_statistic.save()
+
+            return JsonResponse({'message': 'Correct guess!', 'score': user_statistic.correct_answers})
+        else:
+            return JsonResponse({'message': 'Incorrect guess!'})
+        
+    except json.JSONDecodeError as e:
+        return JsonResponse({'error': 'Invalid JSON data'})
