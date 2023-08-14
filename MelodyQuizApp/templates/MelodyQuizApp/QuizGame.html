@@ -7,18 +7,27 @@
 {% block content %}
     <h1>Game Page</h1>
 
-    <form id="guess-form">
-        {% csrf_token %}
+    {% if user.is_authenticated %}
+        {% if not user.socialaccount_set.all %}
+            <form id="guess-form">
+                {% csrf_token %}
 
-        <audio controls id="song-preview">
-            <source src="" type="audio/mpeg">
-            Your browser does not support the audio element.
-        </audio>
-        <input type="text" id="song-guess" placeholder="Enter the song name">
-        <button id="submit-answer">Submit Answer</button>
-        <div id="result-message"></div>
-    </form> 
+                <audio controls id="song-preview">
+                    <source src="" type="audio/mpeg">
+                    Your browser does not support the audio element.
+                </audio>
+                <input type="text" id="song-guess" placeholder="Enter the song name">
+                <button id="submit-answer">Submit Answer</button>
+                <div id="result-message"></div>
+            </form>
+        {% endif %}
+    {% endif %}
 
+    {% if not user.is_authenticated %}
+        <h1>To get this functionality you firstly need to 
+            <a href="{% url 'AccountsApp:register' %}">Register</a> your account
+        </h1>
+    {% endif %}
 
     <script>
         // Existing timer code

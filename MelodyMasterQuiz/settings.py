@@ -31,6 +31,7 @@ INSTALLED_APPS = [
 
     'MelodyQuizApp',
     'spotify_auth_app',
+    'AccountsApp',
 ]
 
 MIDDLEWARE = [

@@ -94,9 +94,6 @@ def submit_guess(request):
         user_guess = data.get('guess', '').strip().lower()
         correct_song_name = data.get('correct_song_name', '').strip().lower()
 
-        print(f"user_guess: {user_guess}")
-        print(f"correct_song_name: {correct_song_name}")
-
         if user_guess == correct_song_name:
             user = get_user(request)  # Convert lazy object to actual user object
 
