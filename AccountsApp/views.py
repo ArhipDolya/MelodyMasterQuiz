@@ -28,16 +28,13 @@ def login_view(request):
 def register_view(request):
     if request.method == 'POST':
         form = RegisterForm(request.POST)
-
         if form.is_valid():
             user = form.save(commit=False)
             user.username = user.username.lower()
-
-            if is_password_used(user.password):
-                form.add_error('password1', 'This password is already in use. Please, change to another.')
-                return render(request, 'AccountsApp/registration.html', {'form': form})
-
             user.save()
+
+            # Set the user instance for the password validation
+            form.user = user
 
             # Specify the authentication backend
             user.backend = 'django.contrib.auth.backends.ModelBackend'
@@ -49,8 +46,3 @@ def register_view(request):
 
     return render(request, 'AccountsApp/registration.html', {'form': form})
 
-
-# Check if any user has the same password hash
-def is_password_used(password):
-    users_with_same_password = User.objects.filter(password__iexact=password)
-    return users_with_same_password.exists()

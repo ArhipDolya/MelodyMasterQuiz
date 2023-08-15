@@ -3,13 +3,23 @@ from django.contrib.auth import authenticate
 from django.contrib.auth.models import User
 from django.contrib.auth.forms import UserCreationForm
 
+from .validators import validate_unique_password, CustomMinimumLengthValidator
+
 
 class RegisterForm(UserCreationForm):
-    
+
+    def clean_password1(self):
+        password1 = self.cleaned_data.get('password1')
+        user = getattr(self, 'user', None)
+        
+        if password1:
+            validate_unique_password(password1, user=user)
+
+        return password1
+
     class Meta:
         model = User
         fields = ['username', 'email', 'password1', 'password2']
-
 
 
 class LoginForm(forms.Form):
