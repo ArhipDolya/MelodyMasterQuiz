@@ -20,7 +20,10 @@ def homepage(request):
                 'correct_answers': game_statistics.correct_answers,
                 'incorrect_answers': game_statistics.total_questions - game_statistics.correct_answers
             }
-    return render(request, 'MelodyQuizApp/homepage.html', {'user': request.user, 'game_statistics': game_statistics})
+
+    top_scores = GameStatistic.objects.order_by('-score')[:10]
+    
+    return render(request, 'MelodyQuizApp/homepage.html', {'user': request.user, 'game_statistics': game_statistics, 'top_scores': top_scores})
 
 
 def quiz_game_view(request):
@@ -109,6 +112,7 @@ def submit_guess(request):
             user_statistic, _ = GameStatistic.objects.get_or_create(user=user)
             user_statistic.correct_answers += 1
             user_statistic.total_questions += 1
+            user_statistic.score += 10
             user_statistic.save()
 
             return JsonResponse({'message': 'Correct guess!', 'score': user_statistic.correct_answers})

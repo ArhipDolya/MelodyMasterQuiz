@@ -33,8 +33,15 @@ class GameStatistic(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE)
     correct_answers = models.PositiveIntegerField(default=0)
     total_questions = models.PositiveIntegerField(default=0)
+    score = models.PositiveIntegerField(default=0)
     created_at = models.DateTimeField(auto_now_add=True)
 
 
     def __str__(self):
         return f'{self.user.username} - {self.correct_answers}/{self.total_questions}' 
+
+class User(models.Model):
+    leaderboard = models.PositiveIntegerField(default=0)
+
+    def __str__(self):
+        return self.username

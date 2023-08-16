@@ -1,7 +1,13 @@
 {% extends 'base.html' %}
+{% load static %}
+
 
 {% block title %}
     <title>Homepage</title>
+{% endblock %}
+
+{% block cssLink %}
+    <link rel='stylesheet' type='text/css' href="{% static 'css/homepage.css' %}">
 {% endblock %}
 
 {% block content %}
@@ -29,8 +35,34 @@
                     </div>
                 </div>
             {% else %}
-                <p>You haven't played the game yet.</p>
+                <p class="no-game-message">You haven't played the game yet.</p>
             {% endif %}
+
+            <div class="card mt-5">
+                <div class="card-header">
+                    Leaderboard
+                </div>
+                <div class="card-body">
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th>Position</th>
+                                <th>Username</th>
+                                <th>Score</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for score in top_scores %}
+                                <tr>
+                                    <td>{{ forloop.counter }}</td>
+                                    <td>{{ score.user.username }}</td>
+                                    <td>{{ score.score }}</td>
+                                </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
         </div>
     {% endif %}
 {% endblock %}
