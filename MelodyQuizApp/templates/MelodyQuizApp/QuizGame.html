@@ -15,6 +15,7 @@
                     <div class="card-body">
                         {% if user.is_authenticated %}
                             {% if not user.socialaccount_set.all %}
+                                <div id="timer" class="mt-3" style="margin-bottom: 10px;font-size:18px; font-weight:bold; color:#4CAF50;"></div>
                                 <form id="guess-form">
                                     {% csrf_token %}
 
@@ -57,6 +58,41 @@
             // Fetch song and start timer
             fetchSongAndStartTimer();
         }
+
+        let countdown = 30;
+        let timerElement = document.getElementById('timer')
+
+        function updateTimerDisplay() {
+            timerElement.textContent = `Time remaining: ${countdown} seconds`;
+
+            if (countdown <= 0) {
+                skipSong();
+            }
+        }
+
+        function startTimer() {
+            updateTimerDisplay()
+            countdown--
+            if (countdown >= 0) {
+                setTimeout(startTimer, 1000)
+            }
+        }
+
+        function skipSong() {
+            const resultMessageElement = document.getElementById('result-message')
+            const resultMessageTextElement = document.getElementById('result-message-text')
+
+            resultMessageTextElement.textContent = `Time's up`
+            resultMessageElement.classList.add('alert-danger')
+            resultMessageElement.classList.remove('d-none')
+
+            songPreviewElement.pause()
+
+            setTimeout(() => {
+                location.reload()
+            }, 3000) // Delay for 3 seconds
+        }
+
 
         function fetchSongAndStartTimer() {
             fetch('/quiz/api/get_random_song/')
@@ -117,7 +153,7 @@
                 // Delay for a few seconds before reloading the form
                 setTimeout(() => {
                     location.reload();
-                }, 5000); // Delay for 5 seconds
+                }, 3000); // Delay for 3 seconds
             })
             .catch(error => {
                 console.error('Error submitting guess:', error);

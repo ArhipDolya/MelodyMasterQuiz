@@ -15,5 +15,22 @@
                 </h2>
             </div>
         </div>
+    {% else %}
+        <div class="container mt-5">
+            {% if game_statistics %}
+                <div class="card">
+                    <div class="card-header">
+                        Your Game Statistics
+                    </div>
+                    <div class="card-body">
+                        <p>Correct Answers: {{ game_statistics.correct_answers }}</p>
+                        <p>Incorrect Answers: {{ game_statistics.incorrect_answers }}</p>
+                        <p>Total Questions Attempted: {{ game_statistics.correct_answers|add:game_statistics.incorrect_answers }}</p>
+                    </div>
+                </div>
+            {% else %}
+                <p>You haven't played the game yet.</p>
+            {% endif %}
+        </div>
     {% endif %}
 {% endblock %}

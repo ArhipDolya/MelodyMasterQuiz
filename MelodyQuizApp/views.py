@@ -11,7 +11,16 @@ import json
 
 
 def homepage(request):
-    return render(request, 'MelodyQuizApp/homepage.html', {'user': request.user})
+    game_statistics = None
+    if request.user.is_authenticated:
+        game_statistics = GameStatistic.objects.filter(user=request.user).first()
+
+        if game_statistics:
+            game_statistics = {
+                'correct_answers': game_statistics.correct_answers,
+                'incorrect_answers': game_statistics.total_questions - game_statistics.correct_answers
+            }
+    return render(request, 'MelodyQuizApp/homepage.html', {'user': request.user, 'game_statistics': game_statistics})
 
 
 def quiz_game_view(request):
