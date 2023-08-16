@@ -78,21 +78,44 @@
             }
         }
 
+        
         function skipSong() {
-            const resultMessageElement = document.getElementById('result-message')
-            const resultMessageTextElement = document.getElementById('result-message-text')
-
-            resultMessageTextElement.textContent = `Time's up`
-            resultMessageElement.classList.add('alert-danger')
-            resultMessageElement.classList.remove('d-none')
-
-            songPreviewElement.pause()
-
+            const resultMessageElement = document.getElementById('result-message');
+            const resultMessageTextElement = document.getElementById('result-message-text');
+        
+            resultMessageTextElement.textContent = `Time's up.`;
+            resultMessageElement.classList.add('alert-danger');
+            resultMessageElement.classList.remove('d-none');
+        
+            songPreviewElement.pause();
+        
+            const pointsToSubtract = 10;  // Number of points to subtract
+        
+            if (pointsToSubtract > 0) {
+                const csrfToken = document.querySelector('input[name="csrfmiddlewaretoken"]').value;
+        
+                fetch('/quiz/api/subtract_points/', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'X-CSRFToken': csrfToken,
+                    },
+                    body: JSON.stringify({ points: pointsToSubtract })
+                })
+                .then(response => response.json())
+                .then(data => {
+                    console.log(data.message);
+                })
+                .catch(error => {
+                    console.error(`Error subtracting points: ${error}`);
+                });
+            }
+        
+            // Proceed with the redirection after the result message is displayed
             setTimeout(() => {
-                location.reload()
-            }, 3000) // Delay for 3 seconds
+                window.location.href = window.location.href;  // Redirect to the current page
+            }, 3000); // Delay for 3 seconds
         }
-
 
         function fetchSongAndStartTimer() {
             fetch('/quiz/api/get_random_song/')

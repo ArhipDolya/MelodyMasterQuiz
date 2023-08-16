@@ -4,6 +4,7 @@ from django.http import JsonResponse
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.middleware import get_user
 from .models import Question, Answer, UserProgress, GameStatistic
+from django.views.decorators.csrf import csrf_exempt
 
 import random
 import requests
@@ -22,7 +23,7 @@ def homepage(request):
             }
 
     top_scores = GameStatistic.objects.order_by('-score')[:10]
-    
+
     return render(request, 'MelodyQuizApp/homepage.html', {'user': request.user, 'game_statistics': game_statistics, 'top_scores': top_scores})
 
 
@@ -106,18 +107,48 @@ def submit_guess(request):
         user_guess = data.get('guess', '').strip().lower()
         correct_song_name = data.get('correct_song_name', '').strip().lower()
 
-        if user_guess == correct_song_name:
-            user = get_user(request)  # Convert lazy object to actual user object
+        user = get_user(request)
+        user_statistic, _ = GameStatistic.objects.get_or_create(user=user)
 
-            user_statistic, _ = GameStatistic.objects.get_or_create(user=user)
+        if user_guess == correct_song_name:
             user_statistic.correct_answers += 1
             user_statistic.total_questions += 1
             user_statistic.score += 10
-            user_statistic.save()
-
-            return JsonResponse({'message': 'Correct guess!', 'score': user_statistic.correct_answers})
         else:
-            return JsonResponse({'message': 'Incorrect guess!'})
-        
+            user_statistic.total_questions += 1
+            user_statistic.score -= min(10, user_statistic.score)  # Deduct points, but ensure the score doesn't go below 0
+
+        user_statistic.save()
+
+        return JsonResponse({'message': 'Correct guess!' if user_guess == correct_song_name else 'Incorrect guess!', 'score': user_statistic.score})
+
     except json.JSONDecodeError as e:
         return JsonResponse({'error': 'Invalid JSON data'})
+    
+
+@csrf_exempt
+def subtract_points(request):
+    try:
+        data = json.loads(request.body)
+        points_to_subtract = data.get('points', 0)
+
+        if points_to_subtract > 0:
+            user = get_user(request)
+
+            user_statistic, _ = GameStatistic.objects.get_or_create(user=user)
+
+            if user_statistic.correct_answers >= points_to_subtract:
+                user_statistic.correct_answers -= points_to_subtract
+                user_statistic.score -= min(points_to_subtract, user_statistic.score)  # Ensure score doesn't go below 0
+                user_statistic.save()
+
+                return JsonResponse({'message': f'Subtracted {points_to_subtract} points.'})
+            else:
+                return JsonResponse({'message': 'Insufficient points to subtract.'})
+        else:
+            return JsonResponse({'message': 'No points to subtract.'})
+
+    except json.JSONDecodeError as e:
+        return JsonResponse({'error': 'Invalid JSON data'})
+    
+
