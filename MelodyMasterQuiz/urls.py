@@ -9,4 +9,5 @@ urlpatterns = [
     path('', include('spotify_auth_app.urls')),
     path('quiz/', include('MelodyQuizApp.urls')),
     path('accounts/', include('AccountsApp.urls')),
+    path('auth/', include('allauth.urls')),
 ]
