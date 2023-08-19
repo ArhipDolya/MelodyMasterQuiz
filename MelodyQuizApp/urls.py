@@ -12,5 +12,6 @@ urlpatterns = [
     path('logout/', views.logout_view, name='logout'),
     path('api/get_timer/', views.get_timer, name='get_timer'),
     path('api/get_random_song/', views.get_random_song, name='get_random_song'),
-    path('api/submit_guess/', views.submit_guess, name='submit_guess')
+    path('api/submit_guess/', views.submit_guess, name='submit_guess'),
+    path('api/subtract_points/', views.subtract_points, name='subtract_points'),
 ]

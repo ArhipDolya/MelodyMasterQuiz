@@ -13,7 +13,7 @@
 {% block content %}
     <div class="registration-container">
         <h1>Login</h1>
-        <a href="{% provider_login_url 'google' %}" class="btn btn-primary">Login with Google</a>
+        <a href="{% provider_login_url 'google' %}" class="btn btn-success">Login with Google</a>
         <form method="POST" class="registration-form">
             {% csrf_token %}
             

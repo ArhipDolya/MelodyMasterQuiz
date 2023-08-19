@@ -152,3 +152,25 @@ def subtract_points(request):
         return JsonResponse({'error': 'Invalid JSON data'})
     
 
+@csrf_exempt
+def subtract_points(request):
+    try:
+        data = json.loads(request.body)
+        points_to_subtract = data.get('points', 0)
+
+        if points_to_subtract > 0:
+            user = get_user(request)
+            user_statistic, _ = GameStatistic.objects.get_or_create(user=user)
+
+            if user_statistic.correct_answers >= points_to_subtract:
+                user_statistic.score -= min(points_to_subtract, user_statistic.score)
+                user_statistic.save()
+
+                return JsonResponse({'message': f'Subtracted {points_to_subtract} points.'})
+            else:
+                return JsonResponse({'message': 'Insufficient points to subtract.'})
+        else:
+            return JsonResponse({'message': 'No points to subtract.'})
+
+    except json.JSONDecodeError as e:
+        return JsonResponse({'error': 'Invalid JSON data'})
