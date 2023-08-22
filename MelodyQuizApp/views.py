@@ -1,21 +1,16 @@
 from django.shortcuts import redirect, render
 from django.contrib.auth import logout
-from django.http import JsonResponse
-from django.contrib.auth.decorators import login_required
-from django.contrib.auth.middleware import get_user
 from .models import Question, Answer, UserProgress, GameStatistic
-from django.views.decorators.csrf import csrf_exempt
 from django.shortcuts import get_object_or_404
 
-from rest_framework import viewsets, permissions
+from rest_framework import viewsets
 from rest_framework.decorators import action, api_view
 from rest_framework.response import Response
 
-from serializers import QuestionSerializer, AnswerSerializer, UserProgressSerializer, GameStatisticSerializer, GuessSubmissionSerializer, SubtractionSerializer
+from .serializers import QuestionSerializer, AnswerSerializer, UserProgressSerializer, GameStatisticSerializer, GuessSubmissionSerializer, SubtractionSerializer
 
 import random
 import requests
-import json
 
 
 class QuestionViewSet(viewsets.ModelViewSet):
