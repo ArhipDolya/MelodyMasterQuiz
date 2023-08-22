@@ -24,3 +24,11 @@ class GameStatisticSerializer(serializers.ModelSerializer):
     class Meta:
         model = GameStatistic
         fields = '__all__'
+
+class GuessSubmissionSerializer(serializers.Serializer):
+    guess = serializers.CharField()
+    correct_song_name = serializers.CharField()
+
+
+class SubtractionSerializer(serializers.Serializer):
+    points = serializers.IntegerField()

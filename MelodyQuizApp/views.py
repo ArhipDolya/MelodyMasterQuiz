@@ -5,11 +5,145 @@ from django.contrib.auth.decorators import login_required
 from django.contrib.auth.middleware import get_user
 from .models import Question, Answer, UserProgress, GameStatistic
 from django.views.decorators.csrf import csrf_exempt
+from django.shortcuts import get_object_or_404
+
+from rest_framework import viewsets, permissions
+from rest_framework.decorators import action, api_view
+from rest_framework.response import Response
+
+from serializers import QuestionSerializer, AnswerSerializer, UserProgressSerializer, GameStatisticSerializer, GuessSubmissionSerializer, SubtractionSerializer
 
 import random
 import requests
 import json
 
+
+class QuestionViewSet(viewsets.ModelViewSet):
+    queryset = Question.objects.all()
+    serializer_class = QuestionSerializer
+
+    @action(detail=False, methods=['GET'])
+    def generate_random_question(self, request):
+        questions = Question.objects.all()
+
+        if questions:
+            random_question = random.choice(questions)
+            serializer = self.get_serializer(random_question)
+            return Response(serializer.data)
+        else:
+            return Response({'message': 'No questions available'}, status=404)
+
+
+class AnswerViewSet(viewsets.ModelViewSet):
+    queryset = Answer.objects.all()
+    serializer_class = AnswerSerializer
+
+class UserProgressViewSet(viewsets.ModelViewSet):
+    queryset = UserProgress.objects.all()
+    serializer_class = UserProgressSerializer
+
+class GameStatisticViewSet(viewsets.ModelViewSet):
+    queryset = GameStatistic.objects.all()
+    serializer_class = GameStatisticSerializer
+
+
+@api_view(['POST'])
+def check_answer(request, question_id, answer_id):
+    question = get_object_or_404(Question, id=question_id)
+    answer = get_object_or_404(Answer, id=answer_id)
+    user = request.user
+
+    user_progress = UserProgress(user=user, question=question, answer=answer)
+    user_progress.save()
+
+    if answer.is_correct:
+        game_statistic, _ = GameStatistic.objects.get_or_create(user=user)
+        game_statistic.correct_answers += 1
+        game_statistic.total_questions += 1
+        game_statistic.save()
+
+    return Response(status=200)
+
+
+@api_view(['GET'])
+def get_random_song(request):
+    if 'access_token' not in request.session:
+        return Response({'error': 'Access token not found'}, status=400)
+
+    access_token = request.session['access_token']
+    headers = {'Authorization': f'Bearer {access_token}'}
+
+    playlist_id = '0jY91ayBgGlTDOC6YbHhFK'  # Linkin Park playlist ID
+    api_url = f'https://api.spotify.com/v1/playlists/{playlist_id}/tracks'
+    response = requests.get(api_url, headers=headers)
+
+    if response.status_code == 200:
+        data = response.json()
+
+        tracks = data.get('items', [])
+
+        if tracks:
+            random_track = random.choice(tracks)['track']
+            track_preview_url = random_track.get('preview_url')
+            track_name = random_track.get('name')
+
+            return Response({'song_preview_url': track_preview_url, 'correct_song_name': track_name})
+        else:
+            return Response({'error': 'No tracks found'}, status=404)
+
+    else:
+        return Response({'error': 'Unable to fetch tracks'}, status=500)
+    
+
+
+@api_view(['POST'])
+def submit_guess(request):
+    serializer = GuessSubmissionSerializer(data=request.data)
+    if serializer.is_valid():
+        user_guess = serializer.validated_data['guess'].strip().lower()
+        correct_song_name = serializer.validated_data['correct_song_name'].strip().lower()
+
+        user = request.user
+        user_statistic, _ = GameStatistic.objects.get_or_create(user=user)
+
+        if user_guess == correct_song_name:
+            user_statistic.correct_answers += 1
+            user_statistic.total_questions += 1
+            user_statistic.score += 10
+        else:
+            user_statistic.total_questions += 1
+            user_statistic.score -= min(10, user_statistic.score)  # Deduct points, but ensure the score doesn't go below 0
+
+        user_statistic.save()
+
+        return Response({'message': 'Correct guess!' if user_guess == correct_song_name else 'Incorrect guess!', 'score': user_statistic.score})
+    else:
+        return Response(serializer.errors, status=400)
+    
+
+@api_view(['POST'])
+def subtract_points(request):
+    serializer = SubtractionSerializer(data=request.data)
+    if serializer.is_valid():
+        points_to_subtract = serializer.validated_data['points']
+
+        if points_to_subtract > 0:
+            user = request.user
+            user_statistic, _ = GameStatistic.objects.get_or_create(user=user)
+
+            if user_statistic.score >= points_to_subtract:
+                user_statistic.score -= min(points_to_subtract, user_statistic.score)
+                user_statistic.save()
+
+                return Response({'message': f'Subtracted {points_to_subtract} points.'})
+            else:
+                return Response({'message': 'Insufficient points to subtract.'}, status=400)
+        else:
+            return Response({'message': 'No points to subtract.'}, status=400)
+
+    else:
+        return Response(serializer.errors, status=400)
+    
 
 def homepage(request):
     game_statistics = None
@@ -38,113 +172,3 @@ def spotify_track_info(request):
 def logout_view(request):
     logout(request)
     return redirect('MelodyQuizApp:homepage')
-
-
-def generate_random_question(request):
-    question = Question.objects.all()
-
-    if question:
-        return random.choice(question)
-    
-    return None
-
-
-def check_answer(request, question_id, answer_id):
-    question = Question.objects.get(id=question_id)
-    answer = Answer.objects.get(id=answer_id)
-    user = request.user
-
-    user_progress = UserProgress(user, question, answer)
-    user_progress.save()
-
-    if answer.is_correct:
-        game_statistic, _ = GameStatistic.objects.get_or_create(user=user)
-        game_statistic.correct_answers += 1
-        game_statistic.total_questions += 1
-        game_statistic.save()
-
-    return redirect('next_question_route')
-
-
-def get_timer(request):
-    timer_data = {'timer': 30}
-
-    return JsonResponse(timer_data)
-
-
-def get_random_song(request):
-    if 'access_token' not in request.session:
-        return JsonResponse({'error': 'Access token not found'})
-
-    access_token = request.session['access_token']
-    headers = {'Authorization': f'Bearer {access_token}'}
-
-    playlist_id = '0jY91ayBgGlTDOC6YbHhFK'  # Linkin Park playlist ID
-    api_url = f'https://api.spotify.com/v1/playlists/{playlist_id}/tracks'
-    response = requests.get(api_url, headers=headers)
-
-    if response.status_code == 200:
-        data = response.json()
-
-        tracks = data.get('items', [])
-
-        if tracks:
-            random_track = random.choice(tracks)['track']
-            track_preview_url = random_track.get('preview_url')
-            track_name = random_track.get('name')
-
-            return JsonResponse({'song_preview_url': track_preview_url, 'correct_song_name': track_name})
-        else:
-            return JsonResponse({'error': 'No tracks found'})
-
-    else:
-        return JsonResponse({'error': 'Unable to fetch tracks'})
-
-
-def submit_guess(request):
-    try:
-        data = json.loads(request.body)
-        user_guess = data.get('guess', '').strip().lower()
-        correct_song_name = data.get('correct_song_name', '').strip().lower()
-
-        user = get_user(request)
-        user_statistic, _ = GameStatistic.objects.get_or_create(user=user)
-
-        if user_guess == correct_song_name:
-            user_statistic.correct_answers += 1
-            user_statistic.total_questions += 1
-            user_statistic.score += 10
-        else:
-            user_statistic.total_questions += 1
-            user_statistic.score -= min(10, user_statistic.score)  # Deduct points, but ensure the score doesn't go below 0
-
-        user_statistic.save()
-
-        return JsonResponse({'message': 'Correct guess!' if user_guess == correct_song_name else 'Incorrect guess!', 'score': user_statistic.score})
-
-    except json.JSONDecodeError as e:
-        return JsonResponse({'error': 'Invalid JSON data'})
-    
-
-@csrf_exempt
-def subtract_points(request):
-    try:
-        data = json.loads(request.body)
-        points_to_subtract = data.get('points', 0)
-
-        if points_to_subtract > 0:
-            user = get_user(request)
-            user_statistic, _ = GameStatistic.objects.get_or_create(user=user)
-
-            if user_statistic.score >= points_to_subtract:
-                user_statistic.score -= min(points_to_subtract, user_statistic.score)
-                user_statistic.save()
-
-                return JsonResponse({'message': f'Subtracted {points_to_subtract} points.'})
-            else:
-                return JsonResponse({'message': 'Insufficient points to subtract.'})
-        else:
-            return JsonResponse({'message': 'No points to subtract.'})
-
-    except json.JSONDecodeError as e:
-        return JsonResponse({'error': 'Invalid JSON data'})
