@@ -18,11 +18,9 @@ urlpatterns = [
     path('api/submit_guess/', views.submit_guess, name='submit_guess'),
     path('api/subtract_points/', views.subtract_points, name='subtract_points'),
 
-    # New URL patterns for API views
+    # URL patterns for API views
     path('api/questions/generate_random_question/', views.QuestionViewSet.as_view({'get': 'generate_random_question'}), name='generate_random_question'),
     path('api/check_answer/<int:question_id>/<int:answer_id>/', views.check_answer, name='check_answer'),
 ]
-
-
 
 

@@ -1,7 +1,8 @@
 from django.shortcuts import redirect, render
 from django.contrib.auth import logout
-from .models import Question, Answer, UserProgress, GameStatistic
 from django.shortcuts import get_object_or_404
+from django.contrib.auth.decorators import login_required
+from django.middleware.csrf import get_token
 
 from rest_framework import viewsets
 from rest_framework.decorators import action, api_view
@@ -9,9 +10,12 @@ from rest_framework.response import Response
 
 from .serializers import QuestionSerializer, AnswerSerializer, UserProgressSerializer, GameStatisticSerializer, GuessSubmissionSerializer, SubtractionSerializer
 
+from .models import Question, Answer, UserProgress, GameStatistic
+#from CustomPlaylists.models import Playlist
+
 import random
 import requests
-
+import re
 
 class QuestionViewSet(viewsets.ModelViewSet):
     queryset = Question.objects.all()
@@ -60,7 +64,7 @@ def check_answer(request, question_id, answer_id):
     return Response(status=200)
 
 
-@api_view(['GET'])
+@api_view(['POST'])
 def get_random_song(request):
     if 'access_token' not in request.session:
         return Response({'error': 'Access token not found'}, status=400)
@@ -68,7 +72,13 @@ def get_random_song(request):
     access_token = request.session['access_token']
     headers = {'Authorization': f'Bearer {access_token}'}
 
-    playlist_id = '0jY91ayBgGlTDOC6YbHhFK'  # Linkin Park playlist ID
+    playlist_url = request.data.get('playlist_url')  # Get the playlist URL from the form input
+
+    playlist_id = extract_playlist_id(playlist_url)
+
+    if not playlist_id:
+        return Response({'error': 'Invalid playlist URL'}, status=400)
+
     api_url = f'https://api.spotify.com/v1/playlists/{playlist_id}/tracks'
     response = requests.get(api_url, headers=headers)
 
@@ -84,12 +94,23 @@ def get_random_song(request):
 
             return Response({'song_preview_url': track_preview_url, 'correct_song_name': track_name})
         else:
-            return Response({'error': 'No tracks found'}, status=404)
+            return Response({'error': 'No tracks found in the playlist'}, status=404)
 
     else:
-        return Response({'error': 'Unable to fetch tracks'}, status=500)
-    
+        return Response({'error': 'Unable to fetch tracks from the playlist'}, status=500)
 
+
+def extract_playlist_id(playlist_url):
+    pattern = r'/playlist/([a-zA-Z0-9]+)'
+
+    match = re.search(pattern, playlist_url)
+
+    if match:
+        playlist_id = match.group(1)
+        return playlist_id
+    
+    else:
+        return None
 
 @api_view(['POST'])
 def submit_guess(request):
@@ -155,9 +176,30 @@ def homepage(request):
 
     return render(request, 'MelodyQuizApp/homepage.html', {'user': request.user, 'game_statistics': game_statistics, 'top_scores': top_scores})
 
-
+@login_required
 def quiz_game_view(request):
-    return render(request, 'MelodyQuizApp/QuizGame.html')
+    game_statistics = None
+    playlists = Playlist.objects.filter(user=request.user)
+
+    if request.user.is_authenticated:
+        game_statistics = GameStatistic.objects.filter(user=request.user).first()
+
+        if game_statistics:
+             game_statistics = {
+                'correct_answers': game_statistics.correct_answers,
+                'incorrect_answers': game_statistics.total_questions - game_statistics.correct_answers
+            }
+             
+    top_scores = GameStatistic.objects.order_by('-score')[:10]
+
+
+    return render(request, 'MelodyQuizApp/QuizGame.html', {
+        'user': request.user,
+        'game_statistics': game_statistics,
+        'top_scores': top_scores,
+        'playlists': playlists,
+        'csrf_token': get_token(request),
+    })
 
 
 def spotify_track_info(request):

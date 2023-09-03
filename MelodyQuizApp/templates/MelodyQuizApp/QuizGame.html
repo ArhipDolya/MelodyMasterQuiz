@@ -14,30 +14,41 @@
                     </div>
                     <div class="card-body">
                         {% if user.is_authenticated %}
-                            
-                                <div id="timer" class="mt-3" style="margin-bottom: 10px;font-size:18px; font-weight:bold; color:#4CAF50;"></div>
-                                <form id="guess-form">
-                                    {% csrf_token %}
-
-                                    <audio controls class="mb-3" id="song-preview">
-                                        <source src="" type="audio/mpeg">
-                                        Your browser does not support the audio element.
-                                    </audio>
-                                    <input type="text" class="form-control mb-3" id="song-guess" placeholder="Enter the song name">
-                                    <button class="btn btn-primary" id="submit-answer">Submit Answer</button>
-                                    <div id="result-message" class="mt-3 alert alert-info d-none" role="alert">
-                                        <span id="result-message-text"></span>
-                                    </div>
-                                </form>
-                                
-                            
+                            <h2>Select a Playlist to Start a Quiz</h2>
+                            <form method="post" action="{% url 'CustomPlaylists:create_quiz' %}">
+                                {% csrf_token %}
+                                <div class="form-group">
+                                    <label for="playlist_url">Playlist URL:</label>
+                                    <input type="text" class="form-control" id="playlist_url" name="playlist_url" placeholder="Enter the playlist URL">
+                                </div>
+                                <button id="start-quiz-button" type="button" class="btn btn-primary">Start Quiz</button>
+                            </form>
+    
+                            <div id="quiz-section" class="mt-3" style="display: none;">
+                                <h2>Quiz Questions</h2>
+                                <div id="question-container"></div>
+                                <div id="timer-container">
+                                    Time remaining: <span id="timer">30</span> seconds
+                                </div>
+                                <div id="song-player">
+                                    <!-- Add a player here to play the song -->
+                                    <audio id="song-preview" controls></audio>
+                                </div>
+                                <div class="form-group mt-3">
+                                    <label for="song-guess">Guess the Song:</label>
+                                    <input type="text" class="form-control" id="song-guess" name="song-guess" placeholder="Enter your guess">
+                                </div>
+                                <button id="submit-answer" class="btn btn-primary">Submit Answer</button>
+                                <div id="result-message" class="alert" role="alert"></div>
+                                <div id="time-up-message" class="alert alert-danger" role="alert" style="display: none;">Time's up.</div>
+                            </div>
                         {% endif %}
-
+    
                         {% if not user.is_authenticated %}
                             <h3 class="mb-3">
-                                To get this functionality you firstly need to
+                                To get this functionality, you firstly need to
                                 <a href="{% url 'AccountsApp:register' %}" style='text-decoration:none'>Register</a>
-                                or <a href="{% url 'AccountsApp:login' %}" style='text-decoration:none'>Login</a> your account!
+                                or <a href="{% url 'AccountsApp:login' %}" style='text-decoration:none'>Login</a> to your account!
                             </h3>
                         {% endif %}
                     </div>
@@ -47,110 +58,76 @@
     </div>
 
     <script>
-        // Existing timer code
-
+        const csrfToken = "{{ csrf_token }}";  // Get the CSRF token from the template
         const songPreviewElement = document.getElementById('song-preview');
         const songGuessElement = document.getElementById('song-guess');
         const submitAnswerButton = document.getElementById('submit-answer');
+        const startQuizButton = document.getElementById('start-quiz-button');
+        const questionContainer = document.getElementById('question-container');
         let correctSongName;
-
-        function startQuiz() {
-            // Fetch song and start timer
-            fetchSongAndStartTimer();
-        }
-
         let countdown = 30;
-        let timerElement = document.getElementById('timer')
+        let timerElement = document.getElementById('timer');
 
         function updateTimerDisplay() {
-            timerElement.textContent = `Time remaining: ${countdown} seconds`;
-
+            timerElement.textContent = countdown
             if (countdown <= 0) {
                 skipSong();
             }
         }
 
         function startTimer() {
-            updateTimerDisplay()
-            countdown--
+            updateTimerDisplay();
+            countdown--;
             if (countdown >= 0) {
-                setTimeout(startTimer, 1000)
+                setTimeout(startTimer, 1000);
             }
         }
 
-        
-        function skipSong() {
-            const resultMessageElement = document.getElementById('result-message');
-            const resultMessageTextElement = document.getElementById('result-message-text');
-        
-            resultMessageTextElement.textContent = `Time's up.`;
-            resultMessageElement.classList.add('alert-danger');
-            resultMessageElement.classList.remove('d-none');
-        
-            songPreviewElement.pause();
-        
-            const pointsToSubtract = 10;  // Number of points to subtract
-        
-            if (pointsToSubtract > 0) {
-                const csrfToken = document.querySelector('input[name="csrfmiddlewaretoken"]').value;
-        
-                fetch('/quiz/api/subtract_points/', {
-                    method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/json',
-                        'X-CSRFToken': csrfToken,
-                    },
-                    body: JSON.stringify({ points: pointsToSubtract })
-                })
-                .then(response => response.json())
-                .then(data => {
-                    console.log(data.message);
-                })
-                .catch(error => {
-                    console.error(`Error subtracting points: ${error}`);
-                });
-            }
-        
-            // Proceed with the redirection after the result message is displayed
-            setTimeout(() => {
-                window.location.href = window.location.href;  // Redirect to the current page
-            }, 3000); // Delay for 3 seconds
-        }
+        // Inside the startQuizButton event listener
+        startQuizButton.addEventListener('click', () => {
+            const playlistUrl = document.getElementById('playlist_url').value;
 
-        function fetchSongAndStartTimer() {
-            fetch('/quiz/api/get_random_song/')
-                .then(response => response.json())
-                .then(data => {
-                    const songPreviewURL = data.song_preview_url;
-                    correctSongName = data.correct_song_name;
-        
-                    console.log(`Song Preview URL: ${songPreviewURL}`);
-                    console.log(`Correct Song Name: ${correctSongName}`);
-        
-                    songPreviewElement.src = songPreviewURL;
-                    songPreviewElement.volume = 0.1;
-                    songPreviewElement.play(); // Start playing the audio
-                    startTimer();
-                })
-                .catch(error => {
-                    console.error('Error fetching song:', error);
-                });
-        }
+            countdown = 30
+            updateTimerDisplay()
+            
+            // Fetch a random song from the playlist
+            fetch('/quiz/api/get_random_song/', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'X-CSRFToken': csrfToken,
+                },
+                body: JSON.stringify({ playlist_url: playlistUrl }),
+            })
+            .then(response => response.json())
+            .then(data => {
+                const songPreviewURL = data.song_preview_url;
+                correctSongName = data.correct_song_name;
+                
+                // Set the audio source and play the song
+                songPreviewElement.src = songPreviewURL;
+                songPreviewElement.volume = 0.1;
+                songPreviewElement.play(); // Start playing the audio
+                
+                // Show the quiz section
+                document.getElementById('quiz-section').style.display = 'block';
+                
+            })
+            .catch(error => {
+                console.error('Error fetching song:', error);
+            });
+        });
 
-        startQuiz();
-
-        // Submit user's answer
         submitAnswerButton.addEventListener('click', (event) => {
             event.preventDefault(); // Prevent the default form submission
             const userGuess = songGuessElement.value.trim();
             if (userGuess) {
                 submitUserGuess(userGuess);
             }
-        });      
+        });
 
         function submitUserGuess(guess) {
-            const csrfToken = document.querySelector('input[name="csrfmiddlewaretoken"]').value;
-        
+            // Submit the user's guess
             fetch('/quiz/api/submit_guess/', {
                 method: 'POST',
                 headers: {
@@ -161,17 +138,22 @@
             })
             .then(response => response.json())
             .then(data => {
+                
                 const resultMessageElement = document.getElementById('result-message');
-            const resultMessageTextElement = document.getElementById('result-message-text');
-            if (data.message === 'Correct guess!') {
-                resultMessageTextElement.textContent = 'Congratulations! Your guess is correct!';
-                resultMessageElement.classList.remove('d-none');
-                resultMessageElement.classList.remove('alert-danger'); // Remove red styling if previous answer was incorrect
-            } else {
-                resultMessageTextElement.textContent = 'Oops! Your guess is incorrect.';
-                resultMessageElement.classList.remove('d-none');
-                resultMessageElement.classList.add('alert-danger'); // Add red styling for incorrect answer
-            }
+                if (data.message === 'Correct guess!') {
+                    resultMessageElement.textContent = 'Congratulations! Your guess is correct!';
+                    resultMessageElement.classList.remove('d-none');
+                    resultMessageElement.classList.remove('alert-danger'); // Remove red styling if previous answer was incorrect
+                    resultMessageElement.classList.add('alert-success'); // Add green styling for correct answer
+                } else {
+                    console.log('Incorrect guess!'); // Debugging line
+                    resultMessageElement.textContent = 'Oops! Your guess is incorrect.';
+                    resultMessageElement.classList.remove('d-none');
+                    resultMessageElement.classList.add('alert-danger'); // Add red styling for incorrect answer
+                }
+        
+                // Clear the guess input
+                songGuessElement.value = '';
         
                 // Delay for a few seconds before reloading the form
                 setTimeout(() => {
@@ -183,6 +165,43 @@
             });
         }
 
-    </script>
+        function skipSong() {
 
-{% endblock %} 
+            const timeUpMessage = document.getElementById('time-up-message');
+            timeUpMessage.style.display = 'block';
+            
+            // Pause the song
+            songPreviewElement.pause();
+            
+            // Deduct points
+            const pointsToSubtract = 10;
+
+            // If there are points to subtract, do so
+            if (pointsToSubtract > 0) {
+                // Subtract points
+                fetch('/quiz/api/subtract_points/', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'X-CSRFToken': csrfToken,
+                    },
+                    body: JSON.stringify({ points: pointsToSubtract }),
+                })
+                .then(response => response.json())
+                .then(data => {
+                    console.log(data.message);
+                })
+                .catch(error => {
+                    console.error(`Error subtracting points: ${error}`);
+                });
+            }
+
+            // Reload the form after a delay
+            setTimeout(() => {
+                location.reload();
+            }, 3000); // Delay for 3 seconds
+        }
+
+        startTimer()
+    </script>
+{% endblock %}
