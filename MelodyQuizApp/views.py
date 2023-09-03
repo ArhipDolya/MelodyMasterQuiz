@@ -11,7 +11,7 @@ from rest_framework.response import Response
 from .serializers import QuestionSerializer, AnswerSerializer, UserProgressSerializer, GameStatisticSerializer, GuessSubmissionSerializer, SubtractionSerializer
 
 from .models import Question, Answer, UserProgress, GameStatistic
-#from CustomPlaylists.models import Playlist
+from CustomPlaylists.models import Playlist
 
 import random
 import requests

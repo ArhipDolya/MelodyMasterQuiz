@@ -7,6 +7,7 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('', RedirectView.as_view(url='/quiz/')),
     path('', include('spotify_auth_app.urls')),
+    path('', include('CustomPlaylists.urls')),
     path('quiz/', include('MelodyQuizApp.urls')),
     path('accounts/', include('AccountsApp.urls')),
     path('auth/', include('allauth.urls')),
