@@ -1,5 +1,6 @@
 from pathlib import Path
 from decouple import config
+
 import os
 
 
@@ -133,8 +134,8 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 # Spotify API settings
 
-SPOTIPY_CLIENT_ID = config('SPOTIPY_CLIENT_ID')
-SPOTIPY_CLIENT_SECRET = config('SPOTIPY_CLIENT_SECRET')
+SPOTIPY_CLIENT_ID = config('SPOTIFY_CLIENT_ID')
+SPOTIPY_CLIENT_SECRET = config('SPOTIFY_CLIENT_SECRET')
 SPOTIPY_REDIRECT_URI = 'http://localhost:8000/callback'
 
 SOCIALACCOUNT_PROVIDERS = {

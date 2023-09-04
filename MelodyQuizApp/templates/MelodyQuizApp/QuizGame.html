@@ -1,7 +1,12 @@
 {% extends 'base.html' %}
+{% load static %}
 
 {% block title %}
     <title>QuizGame</title>
+{% endblock %}
+
+{% block cssLink %}
+    <link rel='stylesheet' type='text/css' href="{% static 'css/quiz_game.css' %}">
 {% endblock %}
 
 {% block content %}
