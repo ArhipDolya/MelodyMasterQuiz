@@ -1,0 +1,47 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}
+    <title>QuizGame</title>
+{% endblock %}
+
+{% block cssLink %}
+    <link rel='stylesheet' type='text/css' href="{% static 'css/quiz_game.css' %}">
+{% endblock %}
+
+{% block content %}
+    <div class="container mt-5">
+        <div class="row justify-content-center">
+            <div class="col-md-6">
+                <div class="card">
+                    <div class="card-header">
+                        Game Page
+                    </div>
+                    <div class="card-body">
+
+                        {% if user.is_authenticated %}
+                            <h2>Select a Playlist to Start a Quiz</h2>
+                            <form method="post" action="{% url 'MelodyQuizApp:quiz_game_view' %}">
+                                {% csrf_token %}
+                                <div class="form-group">
+                                    <label for="playlist_url">Playlist URL:</label>
+                                    <input type="text" class="form-control" id="playlist_url" name="playlist_url" placeholder="Enter the playlist URL">
+                                </div>
+                                <button type="submit" class="btn btn-primary">Start Quiz</button>
+                            </form>                            
+                        {% endif %}
+                        
+                        {% if not user.is_authenticated %}
+                            <h3 class="mb-3">
+                                To get this functionality, you firstly need to
+                                <a href="{% url 'AccountsApp:register' %}" style='text-decoration:none'>Register</a>
+                                or <a href="{% url 'AccountsApp:login' %}" style='text-decoration:none'>Login</a> to your account!
+                            </h3>
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+{% endblock %}
