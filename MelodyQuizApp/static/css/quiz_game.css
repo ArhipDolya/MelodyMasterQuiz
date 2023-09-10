@@ -1,3 +1,63 @@
+.container {
+    background-color: #f0f0f0;
+    padding: 20px;
+    border-radius: 5px;
+}
+
+.card {
+    border: none;
+}
+
+.card-header {
+    background-color: #007bff; /* Blue header background color */
+    color: white;
+    font-weight: bold;
+    text-align: center;
+    padding: 10px;
+}
+
+.card-body {
+    padding: 20px;
+}
+
+#start-quiz-button {
+    background-color: #007bff; /* Blue button background color */
+    color: white;
+    border: none;
+    margin-top: 10px; /* Add padding 10px top and bottom, 20px left and right */
+}
+
+.form-control {
+    margin-bottom: 10px;
+}
+
+#quiz-section {
+    display: none;
+    margin-top: 20px;
+}
+
+#timer-container {
+    font-weight: bold;
+    margin-top: 10px;
+}
+
+#audio-player {
+    margin-top: 20px;
+}
+
+#song-guess {
+    margin-top: 10px;
+}
+
+#submit-answer {
+    background-color: #007bff;
+    color: white;
+    border: none;
+    margin-top: 10px;
+    padding: 10px 20px;
+}
+
+
 .alert-success {
     background-color: #dff0d8; /* Green background color */
     color: #3c763d; /* Dark green text color */
@@ -13,7 +73,3 @@
     padding: 10px 15px; /* Add padding top and bottom 10px, left and right 15px */
     margin-top: 10px;
 }
-
-
-
-
