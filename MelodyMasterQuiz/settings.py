@@ -23,7 +23,7 @@ ALLOWED_HOSTS = []
 # Application definition
 
 SITE_ID = 3
-#{% if not user.socialaccount_set.all %}
+
 INSTALLED_APPS = [
     'django.contrib.admin',
     'django.contrib.auth',
@@ -36,6 +36,8 @@ INSTALLED_APPS = [
     'spotify_auth_app',
     'AccountsApp',
     'CustomPlaylists',
+
+    'corsheaders',
 
     'allauth',
     'allauth.account',
@@ -52,7 +54,10 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'corsheaders.middleware.CorsMiddleware',
 ]
+
+CORS_ALLOW_ALL_ORIGINS = True
 
 ROOT_URLCONF = 'MelodyMasterQuiz.urls'
 

@@ -36,7 +36,7 @@
                                     Time remaining: <span id="timer">30</span> seconds
                                 </div>
                                 <div id="song-player">
-                                    <!-- Add a player here to play the song -->
+                
                                     <audio id="song-preview" controls></audio>
                                 </div>
                                 <div class="form-group mt-3">
@@ -44,6 +44,7 @@
                                     <input type="text" class="form-control" id="song-guess" name="song-guess" placeholder="Enter your guess">
                                 </div>
                                 <button id="submit-answer" class="btn btn-primary" style='margin-top: 10px;'>Submit Answer</button>
+                                <button id='dont-know-button' class='btn btn-danger'>Don't know</button>
                                 <div id="result-message" class="alert" role="alert"></div>
                                 <div id="time-up-message" class="alert alert-danger" role="alert" style="display: none;">Time's up.</div>
                             </div>
@@ -56,6 +57,8 @@
                                 or <a href="{% url 'AccountsApp:login' %}" style='text-decoration:none'>Login</a> to your account!
                             </h3>
                         {% endif %}
+                        
+
                     </div>
                 </div>
             </div>
@@ -69,6 +72,7 @@
         const submitAnswerButton = document.getElementById('submit-answer');
         const startQuizButton = document.getElementById('start-quiz-button');
         const questionContainer = document.getElementById('question-container');
+        const dontKnowButton = document.getElementById('dont-know-button')
         let correctSongName;
         let countdown = 30;
         let timerElement = document.getElementById('timer');
@@ -170,6 +174,30 @@
             });
         }
 
+        dontKnowButton.addEventListener('click', () => {
+            const pointsToSubtract = 10;
+
+            fetch('/quiz/api/subtract_points/', {
+                'method': 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'X-CSRFToken': csrfToken,
+                },
+                body: JSON.stringify({points: pointsToSubtract})
+            })
+            .then(response => response.json())
+            .then(data => {
+                console.log(data.message)
+
+                setTimeout(() => {
+                    location.reload()
+                }, 1000)
+            })
+            .catch(error => {
+                console.error('Error subtracting points', error)
+            })
+        })
+
         function skipSong() {
 
             const timeUpMessage = document.getElementById('time-up-message');
@@ -208,5 +236,6 @@
         }
 
         startTimer()
+
     </script>
 {% endblock %}
