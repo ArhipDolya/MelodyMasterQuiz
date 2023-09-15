@@ -73,3 +73,22 @@
     padding: 10px 15px; /* Add padding top and bottom 10px, left and right 15px */
     margin-top: 10px;
 }
+
+.btn-dont-know {
+    background-color: #dc3545;
+    color: white;
+    border: none; 
+    margin-top: 10px;
+    padding: 10px 20px;
+    border-radius: 5px; /* Add rounded corners */
+    cursor: pointer; /* Change cursor to a pointer on hover */
+}
+
+/* Optionally, add hover effect for the button */
+.btn-dont-know:hover {
+    background-color: #c82333; /* Darker red background color on hover */
+}
+
+
+
+

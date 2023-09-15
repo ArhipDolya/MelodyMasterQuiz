@@ -9,8 +9,9 @@ from rest_framework.decorators import action, api_view
 from rest_framework.response import Response
 
 from .serializers import QuestionSerializer, AnswerSerializer, UserProgressSerializer, GameStatisticSerializer, GuessSubmissionSerializer, SubtractionSerializer
-
 from .models import Question, Answer, UserProgress, GameStatistic
+from .quiz_services import generate_random_question
+
 from CustomPlaylists.models import Playlist
 
 import random
@@ -30,7 +31,7 @@ class QuestionViewSet(viewsets.ModelViewSet):
             serializer = self.get_serializer(random_question)
             return Response(serializer.data)
         else:
-            return Response({'message': 'No questions available'}, status=404)
+            return Response({'message': 'No questions available'}, status=404) 
 
 
 class AnswerViewSet(viewsets.ModelViewSet):
