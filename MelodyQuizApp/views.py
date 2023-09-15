@@ -24,10 +24,9 @@ class QuestionViewSet(viewsets.ModelViewSet):
 
     @action(detail=False, methods=['GET'])
     def generate_random_question(self, request):
-        questions = Question.objects.all()
+        random_question = generate_random_question()
 
-        if questions:
-            random_question = random.choice(questions)
+        if random_question:
             serializer = self.get_serializer(random_question)
             return Response(serializer.data)
         else:
