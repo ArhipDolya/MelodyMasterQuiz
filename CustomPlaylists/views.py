@@ -4,7 +4,7 @@ from MelodyQuizApp.models import Question, GameStatistic
 
 from rest_framework.response import Response
 
-from custom_playlist_services import create_user_quiz_session
+from .custom_playlist_services import create_user_quiz_session
 
 import random, requests
 
