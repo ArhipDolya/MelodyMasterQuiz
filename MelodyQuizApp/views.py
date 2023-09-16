@@ -11,7 +11,7 @@ from .serializers import QuestionSerializer, AnswerSerializer, UserProgressSeria
 from .models import Question, Answer, UserProgress, GameStatistic
 
 from .quiz_services import generate_random_question, check_user_answer, get_random_spotify_song, submit_user_guess
-from .quiz_services import subtract_points_from_user, get_user_game_statistics, get_top_scores, get_quiz_game_data
+from .quiz_services import subtract_points_from_user, get_user_game_statistics, get_top_scores
 
 from CustomPlaylists.models import Playlist
 

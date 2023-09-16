@@ -10,6 +10,7 @@ from .utils import extract_playlist_id
 import random
 import requests
 
+
 def generate_random_question():
     questions = Question.objects.all()
 
@@ -125,7 +126,3 @@ def get_top_scores():
     top_scores = GameStatistic.objects.order_by('-score')[:10]
 
     return top_scores
-
-
-def get_quiz_game_data(user):
-    pass
