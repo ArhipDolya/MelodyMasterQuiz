@@ -16,6 +16,21 @@ from .quiz_services import subtract_points_from_user, get_user_game_statistics, 
 from CustomPlaylists.models import Playlist
 
 
+class AnswerViewSet(viewsets.ModelViewSet):
+    queryset = Answer.objects.all()
+    serializer_class = AnswerSerializer
+
+
+class UserProgressViewSet(viewsets.ModelViewSet):
+    queryset = UserProgress.objects.all()
+    serializer_class = UserProgressSerializer
+
+
+class GameStatisticViewSet(viewsets.ModelViewSet):
+    queryset = GameStatistic.objects.all()
+    serializer_class = GameStatisticSerializer
+
+
 class QuestionViewSet(viewsets.ModelViewSet):
     queryset = Question.objects.all()
     serializer_class = QuestionSerializer
@@ -28,20 +43,7 @@ class QuestionViewSet(viewsets.ModelViewSet):
             serializer = self.get_serializer(random_question)
             return Response(serializer.data)
         else:
-            return Response({'message': 'No questions available'}, status=404) 
-
-
-class AnswerViewSet(viewsets.ModelViewSet):
-    queryset = Answer.objects.all()
-    serializer_class = AnswerSerializer
-
-class UserProgressViewSet(viewsets.ModelViewSet):
-    queryset = UserProgress.objects.all()
-    serializer_class = UserProgressSerializer
-
-class GameStatisticViewSet(viewsets.ModelViewSet):
-    queryset = GameStatistic.objects.all()
-    serializer_class = GameStatisticSerializer
+            return Response({'message': 'No questions available'}, status=404)
 
 
 @api_view(['POST'])
