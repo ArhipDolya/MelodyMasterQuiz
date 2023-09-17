@@ -1,0 +1,23 @@
+Watching for file changes with StatReloader
+Starting new HTTPS connection (1): accounts.spotify.com:443
+https://accounts.spotify.com:443 "POST /api/token HTTP/1.1" 200 None
+Starting new HTTPS connection (1): accounts.spotify.com:443
+https://accounts.spotify.com:443 "POST /api/token HTTP/1.1" 200 None
+Failed logging attempt for user: dsds
+C:\Pycharm\DjangoProjects\MelodyMasterQuiz\MelodyMasterQuiz\AccountsApp\views.py changed, reloading.
+Watching for file changes with StatReloader
+C:\Pycharm\DjangoProjects\MelodyMasterQuiz\MelodyMasterQuiz\AccountsApp\views.py changed, reloading.
+Watching for file changes with StatReloader
+C:\Pycharm\DjangoProjects\MelodyMasterQuiz\MelodyMasterQuiz\AccountsApp\views.py changed, reloading.
+Watching for file changes with StatReloader
+C:\Pycharm\DjangoProjects\MelodyMasterQuiz\MelodyMasterQuiz\AccountsApp\views.py changed, reloading.
+Watching for file changes with StatReloader
+C:\Pycharm\DjangoProjects\MelodyMasterQuiz\MelodyMasterQuiz\AccountsApp\views.py changed, reloading.
+Watching for file changes with StatReloader
+C:\Pycharm\DjangoProjects\MelodyMasterQuiz\MelodyMasterQuiz\AccountsApp\views.py changed, reloading.
+Watching for file changes with StatReloader
+C:\Pycharm\DjangoProjects\MelodyMasterQuiz\MelodyMasterQuiz\AccountsApp\views.py changed, reloading.
+Watching for file changes with StatReloader
+User registered: fdfs
+Starting new HTTPS connection (1): accounts.spotify.com:443
+https://accounts.spotify.com:443 "POST /api/token HTTP/1.1" 200 None

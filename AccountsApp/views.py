@@ -4,6 +4,12 @@ from django.contrib.auth import login, authenticate
 from django.contrib import messages
 from django.contrib.auth.models import User
 
+import logging
+from django.contrib import messages
+
+
+logger = logging.getLogger(__name__)
+
 
 def login_view(request):
     if request.method == 'POST':
@@ -19,6 +25,8 @@ def login_view(request):
                 return redirect('MelodyQuizApp:quiz_game_view')
             else:
                 form.add_error('password', 'Invalid login credentials')
+
+                logger.warning(f'Failed logging attempt for user: {username}')
     else:
         form = LoginForm()
 
@@ -39,6 +47,9 @@ def register_view(request):
             user.backend = 'django.contrib.auth.backends.ModelBackend'
 
             login(request, user)
+
+            logger.info(f'User registered: {user.username}')
+
             return redirect('MelodyQuizApp:quiz_game_view')
     else:
         form = RegisterForm()
