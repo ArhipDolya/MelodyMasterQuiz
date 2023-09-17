@@ -6,7 +6,6 @@ from MelodyQuizApp.models import Question, GameStatistic
 from .utils import fetch_random_songs_from_playlist
 
 import random
-import requests
 
 
 def create_user_quiz_session(user, playlist_url, access_token):

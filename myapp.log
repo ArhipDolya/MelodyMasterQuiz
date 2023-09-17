@@ -21,3 +21,88 @@ Watching for file changes with StatReloader
 User registered: fdfs
 Starting new HTTPS connection (1): accounts.spotify.com:443
 https://accounts.spotify.com:443 "POST /api/token HTTP/1.1" 200 None
+Watching for file changes with StatReloader
+Starting new HTTPS connection (1): accounts.spotify.com:443
+https://accounts.spotify.com:443 "POST /api/token HTTP/1.1" 200 None
+Starting new HTTPS connection (1): api.spotify.com:443
+https://api.spotify.com:443 "GET /v1/me HTTP/1.1" 200 None
+Not Found: /favicon.ico
+Starting new HTTPS connection (1): oauth2.googleapis.com:443
+https://oauth2.googleapis.com:443 "POST /token HTTP/1.1" 200 None
+Starting new HTTPS connection (1): api.spotify.com:443
+https://api.spotify.com:443 "GET /v1/playlists/0jY91ayBgGlTDOC6YbHhFK/tracks HTTP/1.1" 200 None
+C:\Pycharm\DjangoProjects\MelodyMasterQuiz\MelodyMasterQuiz\AccountsApp\views.py changed, reloading.
+Watching for file changes with StatReloader
+C:\Pycharm\DjangoProjects\MelodyMasterQuiz\MelodyMasterQuiz\AccountsApp\views.py changed, reloading.
+Watching for file changes with StatReloader
+C:\Pycharm\DjangoProjects\MelodyMasterQuiz\MelodyMasterQuiz\AccountsApp\views.py changed, reloading.
+Watching for file changes with StatReloader
+C:\Pycharm\DjangoProjects\MelodyMasterQuiz\MelodyMasterQuiz\AccountsApp\views.py changed, reloading.
+Watching for file changes with StatReloader
+C:\Pycharm\DjangoProjects\MelodyMasterQuiz\MelodyMasterQuiz\AccountsApp\views.py changed, reloading.
+Watching for file changes with StatReloader
+C:\Pycharm\DjangoProjects\MelodyMasterQuiz\MelodyMasterQuiz\AccountsApp\models.py changed, reloading.
+Watching for file changes with StatReloader
+C:\Pycharm\DjangoProjects\MelodyMasterQuiz\MelodyMasterQuiz\AccountsApp\models.py changed, reloading.
+Watching for file changes with StatReloader
+C:\Pycharm\DjangoProjects\MelodyMasterQuiz\MelodyMasterQuiz\AccountsApp\models.py changed, reloading.
+Watching for file changes with StatReloader
+C:\Pycharm\DjangoProjects\MelodyMasterQuiz\MelodyMasterQuiz\AccountsApp\models.py changed, reloading.
+Watching for file changes with StatReloader
+C:\Pycharm\DjangoProjects\MelodyMasterQuiz\MelodyMasterQuiz\AccountsApp\models.py changed, reloading.
+Watching for file changes with StatReloader
+C:\Pycharm\DjangoProjects\MelodyMasterQuiz\MelodyMasterQuiz\CustomPlaylists\custom_playlist_services.py changed, reloading.
+Watching for file changes with StatReloader
+C:\Pycharm\DjangoProjects\MelodyMasterQuiz\MelodyMasterQuiz\CustomPlaylists\models.py changed, reloading.
+Watching for file changes with StatReloader
+C:\Pycharm\DjangoProjects\MelodyMasterQuiz\MelodyMasterQuiz\CustomPlaylists\models.py changed, reloading.
+Watching for file changes with StatReloader
+C:\Pycharm\DjangoProjects\MelodyMasterQuiz\MelodyMasterQuiz\CustomPlaylists\models.py changed, reloading.
+Watching for file changes with StatReloader
+C:\Pycharm\DjangoProjects\MelodyMasterQuiz\MelodyMasterQuiz\CustomPlaylists\models.py changed, reloading.
+Watching for file changes with StatReloader
+C:\Pycharm\DjangoProjects\MelodyMasterQuiz\MelodyMasterQuiz\CustomPlaylists\models.py changed, reloading.
+Watching for file changes with StatReloader
+C:\Pycharm\DjangoProjects\MelodyMasterQuiz\MelodyMasterQuiz\CustomPlaylists\models.py changed, reloading.
+Watching for file changes with StatReloader
+C:\Pycharm\DjangoProjects\MelodyMasterQuiz\MelodyMasterQuiz\CustomPlaylists\models.py changed, reloading.
+Watching for file changes with StatReloader
+C:\Pycharm\DjangoProjects\MelodyMasterQuiz\MelodyMasterQuiz\CustomPlaylists\models.py changed, reloading.
+Watching for file changes with StatReloader
+C:\Pycharm\DjangoProjects\MelodyMasterQuiz\MelodyMasterQuiz\CustomPlaylists\models.py changed, reloading.
+Watching for file changes with StatReloader
+C:\Pycharm\DjangoProjects\MelodyMasterQuiz\MelodyMasterQuiz\CustomPlaylists\models.py changed, reloading.
+Watching for file changes with StatReloader
+C:\Pycharm\DjangoProjects\MelodyMasterQuiz\MelodyMasterQuiz\CustomPlaylists\models.py changed, reloading.
+Watching for file changes with StatReloader
+C:\Pycharm\DjangoProjects\MelodyMasterQuiz\MelodyMasterQuiz\CustomPlaylists\models.py changed, reloading.
+Watching for file changes with StatReloader
+C:\Pycharm\DjangoProjects\MelodyMasterQuiz\MelodyMasterQuiz\CustomPlaylists\utils.py changed, reloading.
+Watching for file changes with StatReloader
+C:\Pycharm\DjangoProjects\MelodyMasterQuiz\MelodyMasterQuiz\CustomPlaylists\utils.py changed, reloading.
+Watching for file changes with StatReloader
+C:\Pycharm\DjangoProjects\MelodyMasterQuiz\MelodyMasterQuiz\MelodyQuizApp\models.py changed, reloading.
+Watching for file changes with StatReloader
+C:\Pycharm\DjangoProjects\MelodyMasterQuiz\MelodyMasterQuiz\MelodyQuizApp\models.py changed, reloading.
+Watching for file changes with StatReloader
+C:\Pycharm\DjangoProjects\MelodyMasterQuiz\MelodyMasterQuiz\MelodyQuizApp\models.py changed, reloading.
+Watching for file changes with StatReloader
+C:\Pycharm\DjangoProjects\MelodyMasterQuiz\MelodyMasterQuiz\MelodyQuizApp\models.py changed, reloading.
+Watching for file changes with StatReloader
+C:\Pycharm\DjangoProjects\MelodyMasterQuiz\MelodyMasterQuiz\MelodyQuizApp\models.py changed, reloading.
+Watching for file changes with StatReloader
+C:\Pycharm\DjangoProjects\MelodyMasterQuiz\MelodyMasterQuiz\MelodyQuizApp\models.py changed, reloading.
+Watching for file changes with StatReloader
+C:\Pycharm\DjangoProjects\MelodyMasterQuiz\MelodyMasterQuiz\MelodyQuizApp\models.py changed, reloading.
+Watching for file changes with StatReloader
+C:\Pycharm\DjangoProjects\MelodyMasterQuiz\MelodyMasterQuiz\MelodyQuizApp\models.py changed, reloading.
+Watching for file changes with StatReloader
+C:\Pycharm\DjangoProjects\MelodyMasterQuiz\MelodyMasterQuiz\MelodyQuizApp\models.py changed, reloading.
+Watching for file changes with StatReloader
+C:\Pycharm\DjangoProjects\MelodyMasterQuiz\MelodyMasterQuiz\MelodyQuizApp\models.py changed, reloading.
+Watching for file changes with StatReloader
+C:\Pycharm\DjangoProjects\MelodyMasterQuiz\MelodyMasterQuiz\MelodyQuizApp\models.py changed, reloading.
+Watching for file changes with StatReloader
+C:\Pycharm\DjangoProjects\MelodyMasterQuiz\MelodyMasterQuiz\MelodyQuizApp\models.py changed, reloading.
+Watching for file changes with StatReloader
+C:\Pycharm\DjangoProjects\MelodyMasterQuiz\MelodyMasterQuiz\MelodyQuizApp\models.py changed, reloading.

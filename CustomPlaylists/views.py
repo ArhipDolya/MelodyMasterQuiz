@@ -1,12 +1,10 @@
 from django.shortcuts import render, get_object_or_404, redirect
 from .models import Playlist, QuizSessions
-from MelodyQuizApp.models import Question, GameStatistic
 
 from rest_framework.response import Response
 
 from .custom_playlist_services import create_user_quiz_session
 
-import random, requests
 
 
 def create_quiz_session(request):

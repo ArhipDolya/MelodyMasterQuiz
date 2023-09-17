@@ -1,11 +1,9 @@
 from django.shortcuts import render, redirect
-from .forms import LoginForm, RegisterForm
 from django.contrib.auth import login, authenticate
-from django.contrib import messages
-from django.contrib.auth.models import User
+
+from .forms import LoginForm, RegisterForm
 
 import logging
-from django.contrib import messages
 
 
 logger = logging.getLogger(__name__)

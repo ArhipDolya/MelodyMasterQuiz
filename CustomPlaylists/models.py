@@ -4,6 +4,16 @@ from MelodyQuizApp.models import Question, GameStatistic
 
 
 class Playlist(models.Model):
+    """
+    Model representing a user's playlist
+
+    Attributes:
+        user (ForeignKey to User): The user who owns the playlist.
+        playlist_id (CharField): The identifier for the playlist.
+        name (CharField): The name of the playlist.
+        url (URLField): The URL of the playlist on Spotify.
+    """
+
     user = models.ForeignKey(User, on_delete=models.CASCADE)
     playlist_id = models.CharField(max_length=100)
     name = models.CharField(max_length=100)
@@ -12,7 +22,19 @@ class Playlist(models.Model):
     def __str__(self):
         return self.name
 
+
 class QuizSessions(models.Model):
+    """
+    Model representing a quiz session for a user
+
+    Attributes:
+        user (ForeignKey to User): The user participating in the quiz session.
+        playlist (ForeignKey to Playlist): The playlist associated with the quiz session.
+        current_question (ForeignKey to Question): The current question in the quiz session.
+        score (ForeignKey to GameStatistic): The user's score in the quiz session.
+        started_at (DateTimeField): The timestamp when the quiz session started.
+    """
+
     user = models.ForeignKey(User, on_delete=models.CASCADE)
     playlist = models.ForeignKey(Playlist, on_delete=models.CASCADE)
     current_question = models.ForeignKey(Question, on_delete=models.CASCADE)
