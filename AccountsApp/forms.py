@@ -2,6 +2,7 @@ from django import forms
 from django.contrib.auth import authenticate
 from django.contrib.auth.models import User
 from django.contrib.auth.forms import UserCreationForm
+from django.contrib.auth import password_validation
 
 from .validators import validate_unique_password, CustomMinimumLengthValidator
 
@@ -12,8 +13,13 @@ class RegisterForm(UserCreationForm):
         password1 = self.cleaned_data.get('password1')
         user = getattr(self, 'user', None)
         
+        try:
+            password_validation.validate_password(password1, user)
+        except forms.ValidationError as error:
+            self.add_error('password1', error)
+
         if password1:
-            validate_unique_password(password1, user=user)
+            validate_unique_password(password1, user)
 
         return password1
 

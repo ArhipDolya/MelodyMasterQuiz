@@ -36,7 +36,6 @@ def register_view(request):
             # Set the user instance for the password validation
             form.user = user
 
-            # Specify the authentication backend
             user.backend = 'django.contrib.auth.backends.ModelBackend'
 
             login(request, user)
