@@ -21,6 +21,7 @@ def fetch_random_songs_from_playlist(playlist_url, access_token):
     else:
         return []
     
+    
 def extract_playlist_id(playlist_url):
     # Remove any potential query parameters or fragments from the URL
     playlist_url = playlist_url.split('?')[0].split('#')[0]
