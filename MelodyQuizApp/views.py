@@ -84,18 +84,6 @@ def subtract_points(request):
     return response
     
 
-def homepage(request):
-    game_statistics = None
-    user = request.user
-    
-    if user.is_authenticated:
-        game_statistics = get_user_game_statistics(user)
-
-    top_scores = get_top_scores()
-
-    return render(request, 'MelodyQuizApp/homepage.html', {'user': request.user, 'game_statistics': game_statistics, 'top_scores': top_scores})
-
-
 @login_required
 def quiz_game_view(request):
     game_statistics = None
@@ -115,6 +103,18 @@ def quiz_game_view(request):
         'playlists': playlists,
         'csrf_token': get_token(request),
     })
+
+
+def homepage(request):
+    game_statistics = None
+    user = request.user
+    
+    if user.is_authenticated:
+        game_statistics = get_user_game_statistics(user)
+
+    top_scores = get_top_scores()
+
+    return render(request, 'MelodyQuizApp/homepage.html', {'user': request.user, 'game_statistics': game_statistics, 'top_scores': top_scores})
 
 
 def spotify_track_info(request):

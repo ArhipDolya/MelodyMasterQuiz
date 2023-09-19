@@ -148,3 +148,167 @@ Starting new HTTPS connection (1): api.spotify.com:443
 https://api.spotify.com:443 "GET /v1/playlists/0jY91ayBgGlTDOC6YbHhFK/tracks HTTP/1.1" 200 None
 Starting new HTTPS connection (1): api.spotify.com:443
 https://api.spotify.com:443 "GET /v1/playlists/0jY91ayBgGlTDOC6YbHhFK/tracks HTTP/1.1" 200 None
+Watching for file changes with StatReloader
+Starting new HTTPS connection (1): accounts.spotify.com:443
+https://accounts.spotify.com:443 "POST /api/token HTTP/1.1" 200 None
+Starting new HTTPS connection (1): api.spotify.com:443
+https://api.spotify.com:443 "GET /v1/me HTTP/1.1" 200 None
+Starting new HTTPS connection (1): accounts.spotify.com:443
+https://accounts.spotify.com:443 "POST /api/token HTTP/1.1" 200 None
+Starting new HTTPS connection (1): api.spotify.com:443
+https://api.spotify.com:443 "GET /v1/playlists/0jY91ayBgGlTDOC6YbHhFK/tracks HTTP/1.1" 200 None
+Bad Request: /quiz/api/subtract_points/
+Not Found: /get_random_song
+Not Found: /api/get_random_song/
+Watching for file changes with StatReloader
+Starting new HTTPS connection (1): accounts.spotify.com:443
+https://accounts.spotify.com:443 "POST /api/token HTTP/1.1" 200 None
+Starting new HTTPS connection (1): api.spotify.com:443
+https://api.spotify.com:443 "GET /v1/playlists/0jY91ayBgGlTDOC6YbHhFK/tracks HTTP/1.1" 200 None
+Watching for file changes with StatReloader
+Starting new HTTPS connection (1): accounts.spotify.com:443
+https://accounts.spotify.com:443 "POST /api/token HTTP/1.1" 200 None
+Starting new HTTPS connection (1): api.spotify.com:443
+https://api.spotify.com:443 "GET /v1/playlists/0jY91ayBgGlTDOC6YbHhFK/tracks HTTP/1.1" 200 None
+Watching for file changes with StatReloader
+Watching for file changes with StatReloader
+Starting new HTTPS connection (1): accounts.spotify.com:443
+https://accounts.spotify.com:443 "POST /api/token HTTP/1.1" 200 None
+Starting new HTTPS connection (1): api.spotify.com:443
+https://api.spotify.com:443 "GET /v1/playlists/0jY91ayBgGlTDOC6YbHhFK/tracks HTTP/1.1" 200 None
+Watching for file changes with StatReloader
+/MelodyMasterQuiz/MelodyMasterQuiz/settings.py changed, reloading.
+Watching for file changes with StatReloader
+/MelodyMasterQuiz/MelodyMasterQuiz/settings.py changed, reloading.
+Watching for file changes with StatReloader
+Starting new HTTPS connection (1): accounts.spotify.com:443
+https://accounts.spotify.com:443 "POST /api/token HTTP/1.1" 200 None
+Internal Server Error: /callback/
+Traceback (most recent call last):
+  File "/usr/local/lib/python3.10/site-packages/django/contrib/sessions/backends/base.py", line 187, in _get_session
+    return self._session_cache
+AttributeError: 'SessionStore' object has no attribute '_session_cache'
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/usr/local/lib/python3.10/site-packages/django/core/handlers/exception.py", line 55, in inner
+    response = get_response(request)
+  File "/usr/local/lib/python3.10/site-packages/django/core/handlers/base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "/MelodyMasterQuiz/spotify_auth_app/views.py", line 30, in callback
+    request.session['access_token'] = token_data['access_token']
+  File "/usr/local/lib/python3.10/site-packages/django/contrib/sessions/backends/base.py", line 56, in __setitem__
+    self._session[key] = value
+  File "/usr/local/lib/python3.10/site-packages/django/contrib/sessions/backends/base.py", line 192, in _get_session
+    self._session_cache = self.load()
+  File "/usr/local/lib/python3.10/site-packages/django/contrib/sessions/backends/db.py", line 42, in load
+    s = self._get_session_from_db()
+  File "/usr/local/lib/python3.10/site-packages/django/contrib/sessions/backends/db.py", line 32, in _get_session_from_db
+    return self.model.objects.get(
+  File "/usr/local/lib/python3.10/site-packages/django/db/models/manager.py", line 87, in manager_method
+    return getattr(self.get_queryset(), name)(*args, **kwargs)
+  File "/usr/local/lib/python3.10/site-packages/django/db/models/query.py", line 633, in get
+    num = len(clone)
+  File "/usr/local/lib/python3.10/site-packages/django/db/models/query.py", line 380, in __len__
+    self._fetch_all()
+  File "/usr/local/lib/python3.10/site-packages/django/db/models/query.py", line 1881, in _fetch_all
+    self._result_cache = list(self._iterable_class(self))
+  File "/usr/local/lib/python3.10/site-packages/django/db/models/query.py", line 91, in __iter__
+    results = compiler.execute_sql(
+  File "/usr/local/lib/python3.10/site-packages/django/db/models/sql/compiler.py", line 1549, in execute_sql
+    sql, params = self.as_sql()
+  File "/usr/local/lib/python3.10/site-packages/django/db/models/sql/compiler.py", line 736, in as_sql
+    extra_select, order_by, group_by = self.pre_sql_setup(
+  File "/usr/local/lib/python3.10/site-packages/django/db/models/sql/compiler.py", line 84, in pre_sql_setup
+    self.setup_query(with_col_aliases=with_col_aliases)
+  File "/usr/local/lib/python3.10/site-packages/django/db/models/sql/compiler.py", line 73, in setup_query
+    self.select, self.klass_info, self.annotation_col_map = self.get_select(
+  File "/usr/local/lib/python3.10/site-packages/django/db/models/sql/compiler.py", line 296, in get_select
+    sql, params = self.compile(col)
+  File "/usr/local/lib/python3.10/site-packages/django/db/models/sql/compiler.py", line 546, in compile
+    sql, params = node.as_sql(self, self.connection)
+  File "/usr/local/lib/python3.10/site-packages/django/db/models/expressions.py", line 1133, in as_sql
+    sql = ".".join(map(compiler.quote_name_unless_alias, identifiers))
+  File "/usr/local/lib/python3.10/site-packages/django/db/models/sql/compiler.py", line 537, in quote_name_unless_alias
+    r = self.connection.ops.quote_name(name)
+  File "/usr/local/lib/python3.10/site-packages/django/db/backends/dummy/base.py", line 20, in complain
+    raise ImproperlyConfigured(
+django.core.exceptions.ImproperlyConfigured: settings.DATABASES is improperly configured. Please supply the ENGINE value. Check settings documentation for more details.
+Not Found: /favicon.ico
+Starting new HTTPS connection (1): accounts.spotify.com:443
+https://accounts.spotify.com:443 "POST /api/token HTTP/1.1" 200 None
+Internal Server Error: /callback/
+Traceback (most recent call last):
+  File "/usr/local/lib/python3.10/site-packages/django/contrib/sessions/backends/base.py", line 187, in _get_session
+    return self._session_cache
+AttributeError: 'SessionStore' object has no attribute '_session_cache'
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/usr/local/lib/python3.10/site-packages/django/core/handlers/exception.py", line 55, in inner
+    response = get_response(request)
+  File "/usr/local/lib/python3.10/site-packages/django/core/handlers/base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "/MelodyMasterQuiz/spotify_auth_app/views.py", line 30, in callback
+    request.session['access_token'] = token_data['access_token']
+  File "/usr/local/lib/python3.10/site-packages/django/contrib/sessions/backends/base.py", line 56, in __setitem__
+    self._session[key] = value
+  File "/usr/local/lib/python3.10/site-packages/django/contrib/sessions/backends/base.py", line 192, in _get_session
+    self._session_cache = self.load()
+  File "/usr/local/lib/python3.10/site-packages/django/contrib/sessions/backends/db.py", line 42, in load
+    s = self._get_session_from_db()
+  File "/usr/local/lib/python3.10/site-packages/django/contrib/sessions/backends/db.py", line 32, in _get_session_from_db
+    return self.model.objects.get(
+  File "/usr/local/lib/python3.10/site-packages/django/db/models/manager.py", line 87, in manager_method
+    return getattr(self.get_queryset(), name)(*args, **kwargs)
+  File "/usr/local/lib/python3.10/site-packages/django/db/models/query.py", line 633, in get
+    num = len(clone)
+  File "/usr/local/lib/python3.10/site-packages/django/db/models/query.py", line 380, in __len__
+    self._fetch_all()
+  File "/usr/local/lib/python3.10/site-packages/django/db/models/query.py", line 1881, in _fetch_all
+    self._result_cache = list(self._iterable_class(self))
+  File "/usr/local/lib/python3.10/site-packages/django/db/models/query.py", line 91, in __iter__
+    results = compiler.execute_sql(
+  File "/usr/local/lib/python3.10/site-packages/django/db/models/sql/compiler.py", line 1549, in execute_sql
+    sql, params = self.as_sql()
+  File "/usr/local/lib/python3.10/site-packages/django/db/models/sql/compiler.py", line 736, in as_sql
+    extra_select, order_by, group_by = self.pre_sql_setup(
+  File "/usr/local/lib/python3.10/site-packages/django/db/models/sql/compiler.py", line 84, in pre_sql_setup
+    self.setup_query(with_col_aliases=with_col_aliases)
+  File "/usr/local/lib/python3.10/site-packages/django/db/models/sql/compiler.py", line 73, in setup_query
+    self.select, self.klass_info, self.annotation_col_map = self.get_select(
+  File "/usr/local/lib/python3.10/site-packages/django/db/models/sql/compiler.py", line 296, in get_select
+    sql, params = self.compile(col)
+  File "/usr/local/lib/python3.10/site-packages/django/db/models/sql/compiler.py", line 546, in compile
+    sql, params = node.as_sql(self, self.connection)
+  File "/usr/local/lib/python3.10/site-packages/django/db/models/expressions.py", line 1133, in as_sql
+    sql = ".".join(map(compiler.quote_name_unless_alias, identifiers))
+  File "/usr/local/lib/python3.10/site-packages/django/db/models/sql/compiler.py", line 537, in quote_name_unless_alias
+    r = self.connection.ops.quote_name(name)
+  File "/usr/local/lib/python3.10/site-packages/django/db/backends/dummy/base.py", line 20, in complain
+    raise ImproperlyConfigured(
+django.core.exceptions.ImproperlyConfigured: settings.DATABASES is improperly configured. Please supply the ENGINE value. Check settings documentation for more details.
+Watching for file changes with StatReloader
+Starting new HTTPS connection (1): accounts.spotify.com:443
+https://accounts.spotify.com:443 "POST /api/token HTTP/1.1" 200 None
+Starting new HTTPS connection (1): api.spotify.com:443
+https://api.spotify.com:443 "GET /v1/playlists/0jY91ayBgGlTDOC6YbHhFK/tracks HTTP/1.1" 200 None
+Watching for file changes with StatReloader
+Starting new HTTPS connection (1): accounts.spotify.com:443
+https://accounts.spotify.com:443 "POST /api/token HTTP/1.1" 200 None
+Watching for file changes with StatReloader
+Starting new HTTPS connection (1): accounts.spotify.com:443
+https://accounts.spotify.com:443 "POST /api/token HTTP/1.1" 200 None
+Starting new HTTPS connection (1): api.spotify.com:443
+https://api.spotify.com:443 "GET /v1/me HTTP/1.1" 200 None
+Not Found: /favicon.ico
+Starting new HTTPS connection (1): oauth2.googleapis.com:443
+https://oauth2.googleapis.com:443 "POST /token HTTP/1.1" 200 None
+Starting new HTTPS connection (1): api.spotify.com:443
+https://api.spotify.com:443 "GET /v1/playlists/0jY91ayBgGlTDOC6YbHhFK/tracks HTTP/1.1" 200 None
+Starting new HTTPS connection (1): api.spotify.com:443
+https://api.spotify.com:443 "GET /v1/playlists/0jY91ayBgGlTDOC6YbHhFK/tracks HTTP/1.1" 200 None
+Starting new HTTPS connection (1): api.spotify.com:443
+https://api.spotify.com:443 "GET /v1/search?q=faint&type=track HTTP/1.1" 200 None
