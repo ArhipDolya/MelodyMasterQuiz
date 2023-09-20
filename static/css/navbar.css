@@ -1,3 +1,4 @@
+/* Reset styles for all elements */
 * {
     padding: 0;
     margin: 0;
@@ -10,6 +11,7 @@ body {
     font-family: montserrat;
 }
 
+/* Navbar styles */
 nav {
     background: #0082e6;
     height: 80px;
@@ -23,7 +25,6 @@ label.logo {
     padding: 0 100px;
     font-weight: bold;
 }
-
 
 nav ul {
     float: right;
@@ -50,7 +51,8 @@ a.active, a:hover {
     transition: .5s;
 }
 
-.checkbtn{
+/* Hamburger menu button */
+.checkbtn {
     font-size: 30px;
     color: white;
     float: right;
@@ -63,7 +65,8 @@ a.active, a:hover {
     display: none;
 }
 
-@media(max-width: 952px) {
+/* Responsive design */
+@media (max-width: 952px) {
     label.logo {
         font-size: 30px;
         padding-left: 50px;
@@ -74,14 +77,17 @@ a.active, a:hover {
     }
 }
 
-@media(max-width: 852px) {
+@media (max-width: 852px) {
+    /* Display the hamburger menu button */
     .checkbtn {
         display: block;
     }
+
+    /* Slide-in navigation menu */
     ul {
         position: fixed;
         width: 100%;
-        height: 100hv;
+        height: 100vh; /* Corrected typo from 100hv to 100vh */
         background: #2c3e50;
         top: 80px;
         left: -100%;
@@ -89,23 +95,24 @@ a.active, a:hover {
         transition: all .5s;
     }
 
-    nav ul li{
+    nav ul li {
         display: block;
         margin: 50px 0;
         line-height: 30px;
     }
 
-    nav ul li a{
+    nav ul li a {
         font-size: 20px;
     }
-    
-    a:hover, a:active{
+
+    /* Change link styles when hovered or active */
+    a:hover, a:active {
         background: none;
         color: #0082e6;
     }
 
-    #check:checked ~ ul{
+    /* Show the navigation menu when the checkbox is checked */
+    #check:checked ~ ul {
         left: 0;
-
     }
 }

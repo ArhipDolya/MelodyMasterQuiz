@@ -13,7 +13,7 @@ h1 {
 a {
     color: #3498db;
     text-decoration: none;
-    outline: none; /* Remove browser's focus outline */
+    outline: none;
 }
 
 a:hover {
@@ -36,4 +36,25 @@ a:hover {
     border-radius: 10px;
     background-color: #f7f7f7;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+/* Media query for screens smaller than 768px */
+@media (max-width: 768px) {
+    .container {
+        padding: 10px;
+    }
+
+    h1 {
+        font-size: 28px;
+        margin-bottom: 10px;
+    }
+
+    .welcome-message {
+        padding: 10px;
+    }
+
+    .no-game-message {
+        font-size: 20px;
+        padding: 10px;
+    }
 }

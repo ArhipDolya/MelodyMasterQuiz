@@ -9,7 +9,7 @@
 }
 
 .card-header {
-    background-color: #007bff; /* Blue header background color */
+    background-color: #007bff;
     color: white;
     font-weight: bold;
     text-align: center;
@@ -21,10 +21,11 @@
 }
 
 #start-quiz-button {
-    background-color: #007bff; /* Blue button background color */
+    background-color: #007bff;
     color: white;
     border: none;
-    margin-top: 10px; /* Add padding 10px top and bottom, 20px left and right */
+    margin-top: 10px;
+    padding: 10px 20px;
 }
 
 .form-control {
@@ -57,38 +58,73 @@
     padding: 10px 20px;
 }
 
-
 .alert-success {
-    background-color: #dff0d8; /* Green background color */
-    color: #3c763d; /* Dark green text color */
-    border: 1px solid #3c763d; /* Dark green border */
-    padding: 10px 15px; /* Add padding top and bottom 10px, left and right 15px */
+    background-color: #dff0d8;
+    color: #3c763d;
+    border: 1px solid #3c763d;
+    padding: 10px 15px;
     margin-top: 10px;
 }
 
 .alert-danger {
-    background-color: #f2dede; /* Red background color */
-    color: #a94442; /* Dark red text color */
-    border: 1px solid #a94442; /* Dark red border */
-    padding: 10px 15px; /* Add padding top and bottom 10px, left and right 15px */
+    background-color: #f2dede;
+    color: #a94442;
+    border: 1px solid #a94442;
+    padding: 10px 15px;
     margin-top: 10px;
 }
 
 .btn-dont-know {
     background-color: #dc3545;
     color: white;
-    border: none; 
+    border: none;
     margin-top: 20px;
     padding: 10px 20px;
-    border-radius: 5px; /* Add rounded corners */
-    cursor: pointer; /* Change cursor to a pointer on hover */
+    border-radius: 5px;
+    cursor: pointer;
 }
 
-/* Optionally, add hover effect for the button */
 .btn-dont-know:hover {
-    background-color: #c82333; /* Darker red background color on hover */
+    background-color: #c82333;
 }
 
 
+@media (max-width: 768px) {
+    .container {
+        padding: 10px;
+    }
 
+    .card-header {
+        padding: 5px;
+    }
 
+    #start-quiz-button {
+        margin-top: 5px;
+        padding: 5px 10px;
+    }
+
+    .form-control {
+        margin-bottom: 5px;
+    }
+
+    #quiz-section {
+        margin-top: 10px;
+    }
+
+    #timer-container {
+        margin-top: 5px;
+    }
+
+    #audio-player {
+        margin-top: 10px;
+    }
+
+    #song-guess {
+        margin-top: 5px;
+    }
+
+    #submit-answer {
+        margin-top: 5px;
+        padding: 5px 10px;
+    }
+}

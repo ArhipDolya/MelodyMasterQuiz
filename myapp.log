@@ -312,3 +312,71 @@ Starting new HTTPS connection (1): api.spotify.com:443
 https://api.spotify.com:443 "GET /v1/playlists/0jY91ayBgGlTDOC6YbHhFK/tracks HTTP/1.1" 200 None
 Starting new HTTPS connection (1): api.spotify.com:443
 https://api.spotify.com:443 "GET /v1/search?q=faint&type=track HTTP/1.1" 200 None
+Watching for file changes with StatReloader
+Starting new HTTPS connection (1): accounts.spotify.com:443
+https://accounts.spotify.com:443 "POST /api/token HTTP/1.1" 200 None
+Starting new HTTPS connection (1): api.spotify.com:443
+https://api.spotify.com:443 "GET /v1/playlists/0jY91ayBgGlTDOC6YbHhFK/tracks HTTP/1.1" 200 None
+Starting new HTTPS connection (1): api.spotify.com:443
+https://api.spotify.com:443 "GET /v1/me HTTP/1.1" 200 None
+Starting new HTTPS connection (1): api.spotify.com:443
+https://api.spotify.com:443 "GET /v1/me HTTP/1.1" 200 None
+Starting new HTTPS connection (1): api.spotify.com:443
+https://api.spotify.com:443 "GET /v1/me HTTP/1.1" 200 None
+Bad Request: /quiz/api/subtract_points/
+Bad Request: /quiz/api/subtract_points/
+Bad Request: /quiz/api/subtract_points/
+Bad Request: /quiz/api/subtract_points/
+Bad Request: /quiz/api/subtract_points/
+Bad Request: /quiz/api/subtract_points/
+Bad Request: /quiz/api/subtract_points/
+Bad Request: /quiz/api/subtract_points/
+Bad Request: /quiz/api/subtract_points/
+Bad Request: /quiz/api/subtract_points/
+Bad Request: /quiz/api/subtract_points/
+Bad Request: /quiz/api/subtract_points/
+Bad Request: /quiz/api/subtract_points/
+Bad Request: /quiz/api/subtract_points/
+Bad Request: /quiz/api/subtract_points/
+Bad Request: /quiz/api/subtract_points/
+Bad Request: /quiz/api/subtract_points/
+Bad Request: /quiz/api/subtract_points/
+Bad Request: /quiz/api/subtract_points/
+Watching for file changes with StatReloader
+Starting new HTTPS connection (1): accounts.spotify.com:443
+https://accounts.spotify.com:443 "POST /api/token HTTP/1.1" 200 None
+Starting new HTTPS connection (1): api.spotify.com:443
+https://api.spotify.com:443 "GET /v1/me HTTP/1.1" 200 None
+Starting new HTTPS connection (1): api.spotify.com:443
+https://api.spotify.com:443 "GET /v1/playlists/0jY91ayBgGlTDOC6YbHhFK/tracks HTTP/1.1" 200 None
+Starting new HTTPS connection (1): api.spotify.com:443
+https://api.spotify.com:443 "GET /v1/me HTTP/1.1" 200 None
+Starting new HTTPS connection (1): accounts.spotify.com:443
+https://accounts.spotify.com:443 "POST /api/token HTTP/1.1" 200 None
+Starting new HTTPS connection (1): accounts.spotify.com:443
+https://accounts.spotify.com:443 "POST /api/token HTTP/1.1" 200 None
+Starting new HTTPS connection (1): api.spotify.com:443
+https://api.spotify.com:443 "GET /v1/me HTTP/1.1" 200 None
+Starting new HTTPS connection (1): accounts.spotify.com:443
+https://accounts.spotify.com:443 "POST /api/token HTTP/1.1" 200 None
+Starting new HTTPS connection (1): api.spotify.com:443
+https://api.spotify.com:443 "GET /v1/me HTTP/1.1" 200 None
+Starting new HTTPS connection (1): accounts.spotify.com:443
+https://accounts.spotify.com:443 "POST /api/token HTTP/1.1" 200 None
+Starting new HTTPS connection (1): accounts.spotify.com:443
+https://accounts.spotify.com:443 "POST /api/token HTTP/1.1" 400 None
+Internal Server Error: /callback/
+Traceback (most recent call last):
+  File "C:\Pycharm\DjangoProjects\MelodyMasterQuiz\venv\lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+  File "C:\Pycharm\DjangoProjects\MelodyMasterQuiz\venv\lib\site-packages\django\core\handlers\base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "C:\Pycharm\DjangoProjects\MelodyMasterQuiz\MelodyMasterQuiz\spotify_auth_app\views.py", line 30, in callback
+    request.session['access_token'] = token_data['access_token']
+KeyError: 'access_token'
+Not Found: /favicon.ico
+Starting new HTTPS connection (1): api.spotify.com:443
+https://api.spotify.com:443 "GET /v1/me HTTP/1.1" 200 None
+Starting new HTTPS connection (1): api.spotify.com:443
+https://api.spotify.com:443 "GET /v1/me HTTP/1.1" 200 None
+Watching for file changes with StatReloader
